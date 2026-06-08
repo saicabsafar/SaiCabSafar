@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sai Cab Safar - Shirdi Premium Taxi Service</title>
+    <style>
+        /* प्रीमियम पर्पल और वाइट थीम */
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; background-color: #f5f6fa; color: #333; }
+        
+        /* टॉप बार */
+        .top-bar { background-color: #4b2354; color: white; padding: 10px 20px; text-align: center; font-size: 0.9em; font-weight: bold; }
+        .top-bar a { color: #fbc531; text-decoration: none; margin-left: 10px; }
+
+        /* हेडर */
+        header { background: linear-gradient(135deg, #6f42c1, #4b2354); color: white; padding: 50px 20px; text-align: center; }
+        header h1 { margin: 0; font-size: 2.8em; font-weight: 700; letter-spacing: 1px; }
+        header p { margin: 10px 0 0; font-size: 1.3em; opacity: 0.9; }
+        
+        .container { max-width: 1000px; margin: -30px auto 30px; padding: 0 20px; }
+        
+        /* बुकिंग फॉर्म */
+        .search-box { background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); margin-bottom: 40px; }
+        .trip-types { display: flex; justify-content: center; gap: 15px; margin-bottom: 25px; flex-wrap: wrap; }
+        .trip-types label { padding: 10px 20px; background: #f1f2f6; border-radius: 30px; cursor: pointer; font-weight: bold; font-size: 0.95em; transition: 0.3s; }
+        .trip-types input[type="radio"] { display: none; }
+        .trip-types input[type="radio"]:checked + label { background: #6f42c1; color: white; box-shadow: 0 4px 10px rgba(111, 66, 193, 0.3); }
+        
+        .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px; }
+        .form-group { display: flex; flex-direction: column; text-align: left; }
+        .form-group label { font-size: 0.85em; color: #666; margin-bottom: 5px; font-weight: bold; }
+        .form-group input, .form-group select { padding: 12px; border: 1px solid #ccc; border-radius: 8px; font-size: 1em; outline: none; background: white; }
+        .form-group input:focus, .form-group select:focus { border-color: #6f42c1; }
+        
+        .btn-search { width: 100%; background: #25D366; color: white; border: none; padding: 15px; font-size: 1.2em; font-weight: bold; border-radius: 8px; cursor: pointer; transition: 0.3s; box-shadow: 0 4px 10px rgba(37, 211, 102, 0.3); }
+        .btn-search:hover { background: #1ebd58; transform: translateY(-1px); }
+
+        /* सेक्शन टाइटल */
+        .section-title { text-align: center; color: #4b2354; margin: 40px 0 20px; font-size: 2em; }
+        
+        /* गाड़ियों का सेक्शन */
+        .fleet-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
+        .fleet-card { background: white; border-radius: 12px; padding: 25px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); border-top: 5px solid #6f42c1; text-align: left; display: flex; flex-direction: column; justify-content: space-between; }
+        .fleet-card h3 { margin-top: 0; color: #4b2354; font-size: 1.3em; }
+        .fleet-features { list-style: none; padding: 0; margin: 15px 0; }
+        .fleet-features li { margin-bottom: 8px; font-size: 0.95em; color: #555; }
+        
+        .btn-book { display: block; text-align: center; background: #6f42c1; color: white; padding: 12px; font-weight: bold; text-decoration: none; border-radius: 8px; transition: 0.3s; margin-top: 15px; }
+        .btn-book:hover { background: #4b2354; }
+
+        /* इन्फो सेक्शन */
+        .info-section { background: white; padding: 30px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); margin-top: 40px; }
+        .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; text-align: left; }
+        
+        .payment-badges { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; }
+        .badge { background: #f1f2f6; padding: 8px 15px; border-radius: 5px; font-size: 0.85em; font-weight: bold; color: #4b2354; border: 1px solid #e4e7eb; }
+        .badge.advance { background: #fbc531; color: #333; border-color: #fbc531; }
+
+        /* मैप */
+        .map-container { margin-top: 10px; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+
+        footer { background-color: #222; color: white; text-align: center; padding: 20px; font-size: 0.9em; margin-top: 60px; }
+    </style>
+</head>
+<body>
+
+    <!-- टॉप क्विक संपर्क बार -->
+    <div class="top-bar">
+        📍 शिर्डी की भरोसेमंद टैक्सी सेवा | 📞 बुकिंग के लिए कॉल करें: <a href="tel:+919049133130">+91 9049133130</a>
+    </div>
+
+    <header>
+        <h1>Sai Cab Safar</h1>
+        <p>सुरक्षित, आरामदायक और किफायती यात्रा का अनुभव</p>
+    </header>
+
+    <div class="container">
+        
+        <!-- एडवांस्ड बुकिंग सर्च फॉर्म -->
+        <div class="search-box">
+            <h3 style="margin-top:0; color:#4b2354; text-align:center; margin-bottom:20px;">🚖 ऑनलाइन गाड़ी बुक करें</h3>
+            
+            <div class="trip-types">
+                <input type="radio" id="oneway" name="triptype" value="One Way" checked>
+                <label for="oneway">वन-वे (One Way)</label>
+
+                <input type="radio" id="roundtrip" name="triptype" value="Round Trip">
+                <label for="roundtrip">राउंड-ट्रिप (Round Trip)</label>
+
+                <input type="radio" id="local" name="triptype" value="Local Package">
+                <label for="local">लोकल पैकेज (Local)</label>
+            </div>
+            
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>कहाँ से (From Location)</label>
+                    <input type="text" id="fromLoc" placeholder="उदा. शिर्डी रेलवे स्टेशन" required>
+                </div>
+                <div class="form-group">
+                    <label>कहाँ तक (To Destination)</label>
+                    <input type="text" id="toLoc" placeholder="उदा. एयरपोर्ट या अन्य शहर" required>
+                </div>
+                <div class="form-group">
+                    <label>यात्रा की तारीख</label>
+                    <input type="date" id="tripDate" required>
+                </div>
+                <div class="form-group">
+                    <label>गाड़ी का प्रकार (Select Cab)</label>
+                    <select id="cabType">
+                        <option value="Ertiga (SUV - 6+1 Seater)">Ertiga (SUV - 6+1 Seater)</option>
+                        <option value="Sedan (Dzire / Etios)">Sedan (Dzire / Etios)</option>
+                        <option value="Hatchback (WagonR)">Hatchback (WagonR)</option>
+                        <option value="Innova Crysta (Premium)">Innova Crysta (Premium)</option>
+                        <option value="Tempo Traveller (Group Tour)">Tempo Traveller (Group Tour)</option>
+                    </select>
+                </div>
+            </div>
+            
+            <button class="btn-search" onclick="redirectToWhatsApp()">💬 अभी गाड़ी बुक करें (Send to WhatsApp)</button>
+        </div>
+
+        <!-- गाड़ियों की लिस्ट -->
+        <h2 class="section-title">हमारी उपलब्ध गाड़ियाँ (Our Fleet)</h2>
+        <div class="fleet-grid">
+            
+            <!-- Hatchback Card -->
+            <div class="fleet-card">
+                <div>
+                    <h3>🚗 Hatchback (WagonR / Celerio)</h3>
+                    <p style="color:#666; font-size:0.9em;">छोटे परिवारों के लिए सबसे किफायती और बजट फ्रेंडली गाड़ी।</p>
+                    <ul class="fleet-features">
+                        <li>👥 4 पैसेंजर सीट्स | ❄️ AC उपलब्ध</li>
+                        <li>💰 सबसे कम और पारदर्शी दरें</li>
+                    </ul>
+                </div>
+                <button class="btn-book" onclick="selectCabAndScroll('Hatchback (WagonR)')">बुकिंग फॉर्म में चुनें</button>
+            </div>
+
+            <!-- Sedan Card -->
+            <div class="fleet-card">
+                <div>
+                    <h3>🚖 Sedan (Dzire / Etios)</h3>
+                    <p style="color:#666; font-size:0.9em;">लोकल साइडसीन या लॉन्ग ड्राइव के लिए सबसे लोकप्रिय विकल्प।</p>
+                    <ul class="fleet-features">
+                        <li>👥 4+1 पैसेंजर सीट्स | ❄️ बेहतरीन AC</li>
+                        <li>🛣️ वन-वे और राउंड ट्रिप के लिए बेस्ट</li>
+                    </ul>
+                </div>
+                <button class="btn-book" onclick="selectCabAndScroll('Sedan (Dzire / Etios)')">बुकिंग फॉर्म में चुनें</button>
+            </div>
+
+            <!-- Ertiga Card -->
+            <div class="fleet-card">
+                <div>
+                    <h3>🚐 SUV (Ertiga)</h3>
+                    <p style="color:#666; font-size:0.9em;">पारिवारिक लंबी यात्राओं के लिए सबसे आरामदायक 7-सीटर गाड़ी।</p>
+                    <ul class="fleet-features">
+                        <li>👥 6+1 पैसेंजर सीट्स | ❄️ डबल AC सिस्टम</li>
+                        <li>Family ट्रिप्स के लिए सबसे आरामदायक</li>
+                    </ul>
+                </div>
+                <button class="btn-book" onclick="selectCabAndScroll('Ertiga (SUV - 6+1 Seater)')">बुकिंग फॉर्म में चुनें</button>
+            </div>
+
+        </div>
+
+        <!-- पता, भुगतान और मैप सेक्शन -->
+        <div class="info-section">
+            <div class="info-grid">
+                
+                <!-- कार्यालय का पता -->
+                <div>
+                    <h3 style="color: #4b2354; margin-top:0;">📍 हमारा कार्यालय (Address)</h3>
+                    <p style="font-weight: bold; margin-bottom: 5px;">साईं कैब सफर (Sai Cab Safar)</p>
+                    <p style="margin: 0; line-height: 1.6; color: #555;">
+                        Nearby Sai Ashram Bhaktniwas,<br>
+                        Shirdi, Maharashtra - 423109
+                    </p>
+                    <p style="margin-top: 15px; color: #555;">
+                        📞 <strong>फ़ोन:</strong> +91 9049133130<br>
+                        💬 <strong>WhatsApp:</strong> +91 9049133130
+                    </p>
+                </div>
+
+                <!-- भुगतान विकल्प -->
+                <div>
+                    <h3 style="color: #4b2354; margin-top:0;">💳 भुगतान के विकल्प (Payments)</h3>
+                    <p style="color:#555; font-size:0.95em;">सीट कन्फर्म करने के लिए आप एडवांस पेमेंट या सफर के बाद पूरा पेमेंट कर सकते हैं:</p>
+                    <div class="payment-badges">
+                        <div class="badge advance">⭐ Advance Booking Payment (UPI)</div>
+                        <div class="badge">Google Pay</div>
+                        <div class="badge">PhonePe</div>
+                        <div class="badge">Paytm / UPI</div>
+                        <div class="badge">Cash (नकद)</div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- गूगल मैप नाम के साथ -->
+            <h3 style="color: #4b2354; margin-top: 40px; text-align: left;">🗺️ साईं कैब सफर (Sai Cab Safar) - मुख्य कार्यालय, शिर्डी</h3>
+            <div class="map-container">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1m4!1s0x3bdc5ca0ed473489:0xfe899ec8e398bc61!2sSai%20Ashram%20Bhaktniwas!8m2!3d19.756475!4d74.476483" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Sai Cab Safar. All Rights Reserved.</p>
+        <p style="font-size: 0.8em; opacity: 0.6; margin-top: 5px;">Premium Shirdi Taxi Service | Developed with ❤️</p>
+    </footer>
+
+    <!-- जावास्क्रिप्ट लॉजिक -->
+    <script>
+        // नीचे कार्ड पर क्लिक करने से गाड़ी सीधे ऊपर फॉर्म में सिलेक्ट हो जाएगी
+        function selectCabAndScroll(cabValue) {
+            document.getElementById('cabType').value = cabValue;
+            window.scrollTo({ top: 200, behavior: 'smooth' });
+        }
+
+        // व्हाट्सएप पर पूरी जानकारी भेजने का फंक्शन
+        function redirectToWhatsApp() {
+            var from = document.getElementById('fromLoc').value;
+            var to = document.getElementById('toLoc').value;
+            var date = document.getElementById('tripDate').value;
+            var cab = document.getElementById('cabType').value;
+            
+            // ट्रिप का प्रकार ढूंढना (One Way / Round Trip / Local)
+            var tripType = document.querySelector('input[name="triptype"]:checked').value;
+            
+            if(!from || !to || !date) {
+                alert("कृपया 'कहाँ से', 'कहाँ तक' और 'यात्रा की तारीख' पूरी तरह भरें।");
+                return;
+            }
+            
+            // मैसेज का फॉर्मेट बनाना
+            var text = "✨ *नया बुकिंग अनुरोध - Sai Cab Safar* ✨%0A%0A";
+            text += "🚩 *यात्रा का प्रकार:* " + encodeURIComponent(tripType) + "%0A";
+            text += "🚗 *चुनी गई गाड़ी:* " + encodeURIComponent(cab) + "%0A";
+            text += "📍 *कहाँ से (From):* " + encodeURIComponent(from) + "%0A";
+            text += "🏁 *कहाँ तक (To):* " + encodeURIComponent(to) + "%0A";
+            text += "📅 *तारीख (Date):* " + encodeURIComponent(date) + "%0A%0A";
+            text += "💬 _कृपया बुकिंग कन्फर्म करें और एडवांस पेमेंट की डिटेल्स भेजें।_";
+            
+            // आपके नंबर पर व्हाट्सएप विंडो खोलना
+            window.open("https://wa.me/919049133130?text=" + text, "_blank");
+        }
+    </script>
+
+</body>
+</html>
