@@ -63,17 +63,14 @@
         .form-group { display: flex; flex-direction: column; text-align: left; position: relative; width: 100%; }
         .form-group label { font-size: 0.88em; color: #555; margin-bottom: 7px; font-weight: 600; }
         
-        /* ऑटो-कम्पलीट इनपुट स्टाइल */
         .autoComplete_wrapper { width: 100% !important; }
         .form-group input, .form-group select { padding: 14px; border: 1px solid #dcd6e8; border-radius: 10px; font-size: 1em; outline: none; background: #fdfbfe; width: 100% !important; box-sizing: border-box; transition: all 0.3s; color: #333; }
         .form-group input:focus, .form-group select:focus { border-color: #5b32a6; background: #fff; box-shadow: 0 0 0 3px rgba(91, 50, 166, 0.1); }
         
-        /* सजेशन लिस्ट */
         .autoComplete_wrapper > ul { border-radius: 10px; border-color: #e1daff; box-shadow: 0 8px 20px rgba(0,0,0,0.1); width: 100%; z-index: 999; }
         .autoComplete_wrapper > ul > li { padding: 12px; font-size: 0.95em; color: #333; }
         .autoComplete_wrapper > ul > li:hover { background-color: #f5f1ff; color: #5b32a6; }
 
-        /* डायनामिक डेस्टिनेशंस */
         #dynamicDestinations { width: 100%; display: none; margin-bottom: 10px; }
         .extra-dest-wrapper { display: flex; align-items: center; gap: 10px; margin-top: 12px; width: 100%; }
         .btn-remove-dest { background: #ff4d4d; color: white; border: none; padding: 14px 18px; font-weight: bold; border-radius: 10px; cursor: pointer; transition: 0.2s; }
@@ -82,11 +79,9 @@
         .btn-add-dest { background: #fff; color: #5b32a6; border: 2px dashed #5b32a6; padding: 12px; font-weight: bold; border-radius: 10px; cursor: pointer; margin-top: 5px; margin-bottom: 20px; width: 100%; font-size: 0.95em; display: none; text-align: center; box-sizing: border-box; transition: 0.2s; }
         .btn-add-dest:hover { background: #f5f1ff; }
 
-        /* व्हाट्सएप बुकिंग बटन */
         .btn-search { width: 100%; background: #25D366; color: white; border: none; padding: 16px; font-size: 1.25em; font-weight: 700; border-radius: 10px; cursor: pointer; transition: all 0.3s; box-shadow: 0 6px 15px rgba(37, 211, 102, 0.3); margin-top: 20px; letter-spacing: 0.5px; }
         .btn-search:hover { background: #1ebd58; transform: translateY(-2px); box-shadow: 0 8px 20px rgba(37, 211, 102, 0.4); }
 
-        /* सेक्शन TITLE */
         .section-title { text-align: center; color: #3d1a44; margin: 50px 0 25px; font-size: 2.2em; font-weight: 700; position: relative; }
         .section-title::after { content: ''; display: block; width: 60px; height: 4px; background: #5b32a6; margin: 10px auto 0; border-radius: 2px; }
         
@@ -95,7 +90,6 @@
         .fleet-card { background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 10px 25px rgba(61, 26, 68, 0.05); border-top: 6px solid #5b32a6; text-align: left; display: flex; flex-direction: column; justify-content: space-between; transition: transform 0.3s ease; }
         .fleet-card:hover { transform: translateY(-5px); box-shadow: 0 15px 35px rgba(61, 26, 68, 0.1); }
         
-        /* इमेज कंटेनर स्टाइल */
         .fleet-img-container { width: 100%; height: 180px; overflow: hidden; background: #f1eeff; display: flex; align-items: center; justify-content: center; position: relative; }
         .fleet-img-container img { width: 100%; height: 100%; object-fit: cover; }
         
@@ -189,7 +183,7 @@
             
             <div class="fleet-card">
                 <div class="fleet-img-container">
-                    <img src="hatchback.jpg" onerror="this.src='https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=500&q=80';" alt="Sai Cab Safar WagonR">
+                    <img src="hatchback.jpg.webp" onerror="this.src='https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=500&q=80';" alt="Sai Cab Safar WagonR">
                 </div>
                 <div class="fleet-info">
                     <h3>🚗 Hatchback (WagonR / Celerio)</h3>
@@ -205,11 +199,11 @@
 
             <div class="fleet-card">
                 <div class="fleet-img-container">
-                    <img src="sedan.jpg" onerror="this.src='https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=500&q=80';" alt="Sai Cab Safar Dzire">
+                    <img src="sedan.jpg.jpg" onerror="this.src='https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=500&q=80';" alt="Sai Cab Safar Dzire">
                 </div>
                 <div class="fleet-info">
                     <h3>🚖 Sedan (Dzire / Etios)</h3>
-                    <p style="color:#666; font-size:0.95em; line-height:1.4; margin:0;">लोकल साइडसीन या लॉन्ग ड्राइव के लिए सबसे लोकप्रिय विकल्प।</p>
+                    <p style="color:#666; font-size:0.95em; line-height:1.4; margin:0;">लोकल साइडसीन या लॉन्‍ग ड्राइव के लिए सबसे लोकप्रिय विकल्प।</p>
                     <ul class="fleet-features">
                         <li>👥 4+1 पैसेंजर सीट्स</li>
                         <li>❄️ बेहतरीन चिलिंग AC</li>
@@ -221,7 +215,7 @@
 
             <div class="fleet-card">
                 <div class="fleet-img-container">
-                    <img src="ertiga.jpg" onerror="this.src='https://images.unsplash.com/photo-1583121274602-3e2820c69888?auto=format&fit=crop&w=500&q=80';" alt="Sai Cab Safar Ertiga">
+                    <img src="ertiga.jpg.jpeg" onerror="this.src='https://images.unsplash.com/photo-1583121274602-3e2820c69888?auto=format&fit=crop&w=500&q=80';" alt="Sai Cab Safar Ertiga">
                 </div>
                 <div class="fleet-info">
                     <h3>🚐 SUV (Ertiga)</h3>
@@ -229,9 +223,41 @@
                     <ul class="fleet-features">
                         <li>👥 6+1 पैसेंजर सीट्स</li>
                         <li>❄️ डबल AC वेंट्स (Rear AC)</li>
-                        <li>Family ट्रिप्स के लिए सबसे बेस्ट राइड</li>
+                        <li>👨‍👩‍👧‍👦 Family ट्रिप्स के लिए बेस्ट राइड</li>
                     </ul>
                     <button class="btn-book" onclick="selectCabAndScroll('Ertiga (SUV - 6+1 Seater)')">बुकिंग फॉर्म में चुनें</button>
+                </div>
+            </div>
+
+            <div class="fleet-card">
+                <div class="fleet-img-container">
+                    <img src="InnovaCrysta.jpg.jpeg" onerror="this.src='https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=500&q=80';" alt="Sai Cab Safar Innova Crysta">
+                </div>
+                <div class="fleet-info">
+                    <h3>👑 Innova Crysta (Premium SUV)</h3>
+                    <p style="color:#666; font-size:0.95em; line-height:1.4; margin:0;">लक्ज़री और बेहतरीन आराम के साथ लॉन्ग टूर का मज़ा लें।</p>
+                    <ul class="fleet-features">
+                        <li>👥 6+1 / 7+1 पैसेंजर सीट्स</li>
+                        <li>❄️ ऑटोमैटिक क्लाइमेट कंट्रोल AC</li>
+                        <li>✨ प्रीमियम लुक और एक्स्ट्रा लेगरूम</li>
+                    </ul>
+                    <button class="btn-book" onclick="selectCabAndScroll('Innova Crysta (Premium)')">बुकिंग फॉर्म में चुनें</button>
+                </div>
+            </div>
+
+            <div class="fleet-card">
+                <div class="fleet-img-container">
+                    <img src="TempoTraveller.jpg.jpeg" onerror="this.src='https://images.unsplash.com/photo-1532581291347-9c39cf10a73c?auto=format&fit=crop&w=500&q=80';" alt="Sai Cab Safar Tempo Traveller">
+                </div>
+                <div class="fleet-info">
+                    <h3>🚌 Tempo Traveller (Group Tour)</h3>
+                    <p style="color:#666; font-size:0.95em; line-height:1.4; margin:0;">पूरे परिवार, दोस्तों या ग्रुप टूरिंग के लिए सबसे उत्तम साधन।</p>
+                    <ul class="fleet-features">
+                        <li>👥 12 से 17 सीट्स उपलब्ध</li>
+                        <li>❄️ शानदार रूफ AC वेंट्स</li>
+                        <li>🎬 एंटरटेनमेंट सिस्टम (Music/TV)</li>
+                    </ul>
+                    <button class="btn-book" onclick="selectCabAndScroll('Tempo Traveller (Group Tour)')">बुकिंग फॉर्म में चुनें</button>
                 </div>
             </div>
 
@@ -270,7 +296,7 @@
 
             <h3 style="color: #3d1a44; margin-top: 45px; text-align: left; font-weight: 700;">🗺️ साईं कैब सफर (Sai Cab Safar) - मुख्य कार्यालय, शिर्डी</h3>
             <div class="map-container">
-                <iframe src="http://googleusercontent.com/maps.google.com/6" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3749.638531776378!2d74.46914567500115!3d19.749219981597843!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bdc5b169524e93d%3A0xbcc0e1ef0e8b15d!2sSai%20Ashram%20Bhaktniwas%202!5e0!3m2!1sen!2sin!4v1710000000000!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
         </div>
     </div>
@@ -279,120 +305,4 @@
         <p style="font-weight: 600; color: #fff;">© 2026 Sai Cab Safar. All Rights Reserved.</p>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@10.2.7/dist/autoComplete.min.js"></script>
-    <script>
-        function initAutocomplete(inputId) {
-            return new autoComplete({
-                selector: "#" + inputId,
-                placeHolder: "शहर का नाम ढूंढें...",
-                data: {
-                    src: async (query) => {
-                        try {
-                            const source = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${query}&countrycodes=in&addressdetails=1&limit=5`);
-                            const data = await source.json();
-                            return data.map(item => item.display_name);
-                        } catch (error) {
-                            return [];
-                        }
-                    },
-                    keys: ["value"]
-                },
-                resultsList: { maxResults: 5 },
-                resultItem: { highlight: true },
-                events: {
-                    input: {
-                        selection: (event) => {
-                            const selection = event.detail.selection.value;
-                            document.querySelector("#" + inputId).value = selection;
-                        }
-                    }
-                }
-            });
-        }
-
-        const fromAutocomplete = initAutocomplete("fromLoc");
-        const toAutocomplete = initAutocomplete("toLoc");
-
-        var destCount = 0;
-        function toggleMultiDest(show) {
-            var btn = document.getElementById('btnAddDest');
-            var container = document.getElementById('dynamicDestinations');
-            if (show) {
-                btn.style.display = 'block';
-                container.style.display = 'block';
-            } else {
-                btn.style.display = 'none';
-                container.style.display = 'none';
-                container.innerHTML = ''; 
-                destCount = 0;
-            }
-        }
-
-        function addExtraDestination() {
-            destCount++;
-            var container = document.getElementById('dynamicDestinations');
-            var div = document.createElement('div');
-            div.className = 'extra-dest-wrapper';
-            div.id = 'destWrapper_' + destCount;
-            
-            const randId = "extraLoc_" + destCount;
-            div.innerHTML = `
-                <div class="form-group">
-                    <input type="text" id="${randId}" class="extra-city-input" placeholder="अगला शहर चुनें..." autocomplete="off" required>
-                </div>
-                <button class="btn-remove-dest" onclick="removeDestination(${destCount})">✕</button>
-            `;
-            container.appendChild(div);
-            initAutocomplete(randId);
-        }
-
-        function removeDestination(id) {
-            var element = document.getElementById('destWrapper_' + id);
-            if (element) element.remove();
-        }
-
-        function selectCabAndScroll(cabValue) {
-            document.getElementById('cabType').value = cabValue;
-            window.scrollTo({ top: 200, behavior: 'smooth' });
-        }
-
-        function redirectToWhatsApp() {
-            var from = document.getElementById('fromLoc').value;
-            var to = document.getElementById('toLoc').value;
-            var date = document.getElementById('tripDate').value;
-            var cab = document.getElementById('cabType').value;
-            var tripType = document.querySelector('input[name="triptype"]:checked').value;
-            
-            if(!from || !to || !date) {
-                alert("कृपया पूरी जानकारी भरें।");
-                return;
-            }
-            
-            var extraCities = [];
-            var extraInputs = document.querySelectorAll('.extra-city-input');
-            extraInputs.forEach(function(input) {
-                if(input.value.trim() !== "") {
-                    extraCities.push(input.value.trim().split(',')[0]);
-                }
-            });
-
-            var cleanFrom = from.split(',')[0];
-            var cleanTo = to.split(',')[0];
-            var routeText = cleanTo;
-            if(extraCities.length > 0) {
-                routeText += " ➡️ " + extraCities.join(" ➡️ ");
-            }
-            
-            var text = "✨ *नया बुकिंग अनुरोध - Sai Cab Safar* ✨%0A%0A";
-            text += "🚩 *यात्रा का प्रकार:* " + encodeURIComponent(tripType) + "%0A";
-            text += "🚗 *चुनी गई गाड़ी:* " + encodeURIComponent(cab) + "%0A";
-            text += "📍 *कहाँ से (From):* " + encodeURIComponent(cleanFrom) + "%0A";
-            text += "🏁 *रूट (Route):* " + encodeURIComponent(routeText) + "%0A";
-            text += "📅 *तारीख (Date):* " + encodeURIComponent(date) + "%0A%0A";
-            text += "💬 _कृपया बुकिंग कन्फर्म करें।_";
-            
-            window.open("https://wa.me/919049133130?text=" + text, "_blank");
-        }
-    </script>
-</body>
-</html>
+    <script src="
