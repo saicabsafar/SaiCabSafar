@@ -26,13 +26,22 @@
         .trip-types input[type="radio"] { display: none; }
         .trip-types input[type="radio"]:checked + label { background: #6f42c1; color: white; box-shadow: 0 4px 10px rgba(111, 66, 193, 0.3); }
         
-        .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px; }
-        .form-group { display: flex; flex-direction: column; text-align: left; }
+        .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 15px; }
+        .form-group { display: flex; flex-direction: column; text-align: left; position: relative; }
         .form-group label { font-size: 0.85em; color: #666; margin-bottom: 5px; font-weight: bold; }
         .form-group input, .form-group select { padding: 12px; border: 1px solid #ccc; border-radius: 8px; font-size: 1em; outline: none; background: white; }
         .form-group input:focus, .form-group select:focus { border-color: #6f42c1; }
         
-        .btn-search { width: 100%; background: #25D366; color: white; border: none; padding: 15px; font-size: 1.2em; font-weight: bold; border-radius: 8px; cursor: pointer; transition: 0.3s; box-shadow: 0 4px 10px rgba(37, 211, 102, 0.3); }
+        /* डायनामिक डेस्टिनेशंस */
+        #dynamicDestinations { width: 100%; display: none; }
+        .extra-dest-wrapper { display: flex; align-items: center; gap: 10px; margin-top: 10px; width: 100%; }
+        .extra-dest-wrapper input { flex: 1; padding: 12px; border: 1px solid #ccc; border-radius: 8px; font-size: 1em; }
+        .btn-remove-dest { background: #ff4d4d; color: white; border: none; padding: 12px; font-weight: bold; border-radius: 8px; cursor: pointer; }
+
+        .btn-add-dest { background: #e4e7eb; color: #4b2354; border: 2px dashed #6f42c1; padding: 10px; font-weight: bold; border-radius: 8px; cursor: pointer; margin-top: 10px; margin-bottom: 15px; width: 100%; font-size: 0.95em; display: none; text-align: center; }
+        .btn-add-dest:hover { background: #f1f2f6; }
+
+        .btn-search { width: 100%; background: #25D366; color: white; border: none; padding: 15px; font-size: 1.2em; font-weight: bold; border-radius: 8px; cursor: pointer; transition: 0.3s; box-shadow: 0 4px 10px rgba(37, 211, 102, 0.3); margin-top: 15px; }
         .btn-search:hover { background: #1ebd58; transform: translateY(-1px); }
 
         /* सेक्शन टाइटल */
@@ -57,14 +66,13 @@
         .badge.advance { background: #fbc531; color: #333; border-color: #fbc531; }
 
         /* मैप */
-        .map-container { margin-top: 10px; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .map-container { margin-top: 15px; border-radius: 10px; overflow: hidden; background: #eaeaea; text-align: center; }
 
         footer { background-color: #222; color: white; text-align: center; padding: 20px; font-size: 0.9em; margin-top: 60px; }
     </style>
 </head>
 <body>
 
-    <!-- टॉप क्विक संपर्क बार -->
     <div class="top-bar">
         📍 शिर्डी की भरोसेमंद टैक्सी सेवा | 📞 बुकिंग के लिए कॉल करें: <a href="tel:+919049133130">+91 9049133130</a>
     </div>
@@ -76,29 +84,28 @@
 
     <div class="container">
         
-        <!-- एडवांस्ड बुकिंग सर्च फॉर्म -->
         <div class="search-box">
             <h3 style="margin-top:0; color:#4b2354; text-align:center; margin-bottom:20px;">🚖 ऑनलाइन गाड़ी बुक करें</h3>
             
             <div class="trip-types">
-                <input type="radio" id="oneway" name="triptype" value="One Way" checked>
+                <input type="radio" id="oneway" name="triptype" value="One Way" checked onclick="toggleMultiDest(false)">
                 <label for="oneway">वन-वे (One Way)</label>
 
-                <input type="radio" id="roundtrip" name="triptype" value="Round Trip">
+                <input type="radio" id="roundtrip" name="triptype" value="Round Trip" onclick="toggleMultiDest(true)">
                 <label for="roundtrip">राउंड-ट्रिप (Round Trip)</label>
 
-                <input type="radio" id="local" name="triptype" value="Local Package">
+                <input type="radio" id="local" name="triptype" value="Local Package" onclick="toggleMultiDest(false)">
                 <label for="local">लोकल पैकेज (Local)</label>
             </div>
             
             <div class="form-grid">
                 <div class="form-group">
                     <label>कहाँ से (From Location)</label>
-                    <input type="text" id="fromLoc" placeholder="उदा. शिर्डी रेलवे स्टेशन" required>
+                    <input type="text" id="fromLoc" placeholder="उदा. शिर्डी" required>
                 </div>
-                <div class="form-group">
+                <div class="form-group" id="mainDestGroup">
                     <label>कहाँ तक (To Destination)</label>
-                    <input type="text" id="toLoc" placeholder="उदा. एयरपोर्ट या अन्य शहर" required>
+                    <input type="text" id="toLoc" placeholder="उदा. पुणे" required>
                 </div>
                 <div class="form-group">
                     <label>यात्रा की तारीख</label>
@@ -115,15 +122,16 @@
                     </select>
                 </div>
             </div>
+
+            <div id="dynamicDestinations"></div>
+            <div id="btnAddDest" class="btn-add-dest" onclick="addExtraDestination()">➕ अगला शहर जोड़ें (Add Next City)</div>
             
             <button class="btn-search" onclick="redirectToWhatsApp()">💬 अभी गाड़ी बुक करें (Send to WhatsApp)</button>
         </div>
 
-        <!-- गाड़ियों की लिस्ट -->
         <h2 class="section-title">हमारी उपलब्ध गाड़ियाँ (Our Fleet)</h2>
         <div class="fleet-grid">
             
-            <!-- Hatchback Card -->
             <div class="fleet-card">
                 <div>
                     <h3>🚗 Hatchback (WagonR / Celerio)</h3>
@@ -136,7 +144,6 @@
                 <button class="btn-book" onclick="selectCabAndScroll('Hatchback (WagonR)')">बुकिंग फॉर्म में चुनें</button>
             </div>
 
-            <!-- Sedan Card -->
             <div class="fleet-card">
                 <div>
                     <h3>🚖 Sedan (Dzire / Etios)</h3>
@@ -149,7 +156,6 @@
                 <button class="btn-book" onclick="selectCabAndScroll('Sedan (Dzire / Etios)')">बुकिंग फॉर्म में चुनें</button>
             </div>
 
-            <!-- Ertiga Card -->
             <div class="fleet-card">
                 <div>
                     <h3>🚐 SUV (Ertiga)</h3>
@@ -164,11 +170,9 @@
 
         </div>
 
-        <!-- पता, भुगतान और मैप सेक्शन -->
         <div class="info-section">
             <div class="info-grid">
                 
-                <!-- कार्यालय का पता -->
                 <div>
                     <h3 style="color: #4b2354; margin-top:0;">📍 हमारा कार्यालय (Address)</h3>
                     <p style="font-weight: bold; margin-bottom: 5px;">साईं कैब सफर (Sai Cab Safar)</p>
@@ -182,7 +186,6 @@
                     </p>
                 </div>
 
-                <!-- भुगतान विकल्प -->
                 <div>
                     <h3 style="color: #4b2354; margin-top:0;">💳 भुगतान के विकल्प (Payments)</h3>
                     <p style="color:#555; font-size:0.95em;">सीट कन्फर्म करने के लिए आप एडवांस पेमेंट या सफर के बाद पूरा पेमेंट कर सकते हैं:</p>
@@ -197,36 +200,68 @@
 
             </div>
 
-            <!-- गूगल मैप नाम के साथ -->
             <h3 style="color: #4b2354; margin-top: 40px; text-align: left;">🗺️ साईं कैब सफर (Sai Cab Safar) - मुख्य कार्यालय, शिर्डी</h3>
             <div class="map-container">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1m4!1s0x3bdc5ca0ed473489:0xfe899ec8e398bc61!2sSai%20Ashram%20Bhaktniwas!8m2!3d19.756475!4d74.476483" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                <iframe src="https://maps.google.com/maps?q=Sai%20Ashram%20Bhaktniwas,%20Shirdi&t=&z=14&ie=UTF-8&iwloc=&output=embed" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
             </div>
         </div>
 
     </div>
 
     <footer>
-        <p>&copy; 2026 Sai Cab Safar. All Rights Reserved.</p>
+        <p>© 2026 Sai Cab Safar. All Rights Reserved.</p>
         <p style="font-size: 0.8em; opacity: 0.6; margin-top: 5px;">Premium Shirdi Taxi Service | Developed with ❤️</p>
     </footer>
 
-    <!-- जावास्क्रिप्ट लॉजिक -->
     <script>
-        // नीचे कार्ड पर क्लिक करने से गाड़ी सीधे ऊपर फॉर्म में सिलेक्ट हो जाएगी
+        var destCount = 0;
+
+        function toggleMultiDest(show) {
+            var btn = document.getElementById('btnAddDest');
+            var container = document.getElementById('dynamicDestinations');
+            if (show) {
+                btn.style.display = 'block';
+                container.style.display = 'block';
+            } else {
+                btn.style.display = 'none';
+                container.style.display = 'none';
+                container.innerHTML = ''; // रीसेट एक्स्ट्रा सिटीज
+                destCount = 0;
+            }
+        }
+
+        function addExtraDestination() {
+            destCount++;
+            var container = document.getElementById('dynamicDestinations');
+            
+            var div = document.createElement('div');
+            div.className = 'extra-dest-wrapper';
+            div.id = 'destWrapper_' + destCount;
+            
+            div.innerHTML = `
+                <input type="text" class="extra-city-input" placeholder="उदा. अगला शहर (पुणे/मुंबई/नाशिक)" required>
+                <button class="btn-remove-dest" onclick="removeDestination(${destCount})">✕</button>
+            `;
+            container.appendChild(div);
+        }
+
+        function removeDestination(id) {
+            var element = document.getElementById('destWrapper_' + id);
+            if (element) {
+                element.remove();
+            }
+        }
+
         function selectCabAndScroll(cabValue) {
             document.getElementById('cabType').value = cabValue;
             window.scrollTo({ top: 200, behavior: 'smooth' });
         }
 
-        // व्हाट्सएप पर पूरी जानकारी भेजने का फंक्शन
         function redirectToWhatsApp() {
             var from = document.getElementById('fromLoc').value;
             var to = document.getElementById('toLoc').value;
             var date = document.getElementById('tripDate').value;
             var cab = document.getElementById('cabType').value;
-            
-            // ट्रिप का प्रकार ढूंढना (One Way / Round Trip / Local)
             var tripType = document.querySelector('input[name="triptype"]:checked').value;
             
             if(!from || !to || !date) {
@@ -234,16 +269,28 @@
                 return;
             }
             
-            // मैसेज का फॉर्मेट बनाना
+            // सभी एक्स्ट्रा शहरों को इकट्ठा करना
+            var extraCities = [];
+            var extraInputs = document.querySelectorAll('.extra-city-input');
+            extraInputs.forEach(function(input) {
+                if(input.value.trim() !== "") {
+                    extraCities.push(input.value.trim());
+                }
+            });
+
+            var routeText = to;
+            if(extraCities.length > 0) {
+                routeText += " ➡️ " + extraCities.join(" ➡️ ");
+            }
+            
             var text = "✨ *नया बुकिंग अनुरोध - Sai Cab Safar* ✨%0A%0A";
             text += "🚩 *यात्रा का प्रकार:* " + encodeURIComponent(tripType) + "%0A";
             text += "🚗 *चुनी गई गाड़ी:* " + encodeURIComponent(cab) + "%0A";
             text += "📍 *कहाँ से (From):* " + encodeURIComponent(from) + "%0A";
-            text += "🏁 *कहाँ तक (To):* " + encodeURIComponent(to) + "%0A";
+            text += "🏁 *रूट (Route):* " + encodeURIComponent(routeText) + "%0A";
             text += "📅 *तारीख (Date):* " + encodeURIComponent(date) + "%0A%0A";
             text += "💬 _कृपया बुकिंग कन्फर्म करें और एडवांस पेमेंट की डिटेल्स भेजें।_";
             
-            // आपके नंबर पर व्हाट्सएप विंडो खोलना
             window.open("https://wa.me/919049133130?text=" + text, "_blank");
         }
     </script>
