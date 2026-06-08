@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sai Cab Safar - Shirdi Premium Taxi Service</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@10.2.7/dist/css/autoComplete.min.css">
     <style>
-        /* प्रीमियम और प्रोफेशनल बैकग्राउंड थीम */
+        /* प्रीमियम पर्पल और वाइट थीम */
         body { 
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
             margin: 0; 
@@ -28,7 +29,7 @@
         }
         .top-bar a { color: #fbc531; text-decoration: none; margin-left: 10px; border-bottom: 1px dashed #fbc531; padding-bottom: 2px; }
 
-        /* हेडर - प्रीमियम लुक */
+        /* हेडर */
         header { 
             background: linear-gradient(135deg, #5b32a6 0%, #3d1a44 100%); 
             color: white; 
@@ -59,15 +60,22 @@
         .trip-types input[type="radio"]:checked + label { background: #5b32a6; color: white; box-shadow: 0 6px 15px rgba(91, 50, 166, 0.3); border-color: #5b32a6; }
         
         .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-bottom: 15px; }
-        .form-group { display: flex; flex-direction: column; text-align: left; position: relative; }
+        .form-group { display: flex; flex-direction: column; text-align: left; position: relative; width: 100%; }
         .form-group label { font-size: 0.88em; color: #555; margin-bottom: 7px; font-weight: 600; }
-        .form-group input, .form-group select { padding: 14px; border: 1px solid #dcd6e8; border-radius: 10px; font-size: 1em; outline: none; background: #fdfbfe; width: 100%; box-sizing: border-box; transition: all 0.3s; color: #333; }
+        
+        /* ऑटो-कम्पलीट इनपुट स्टाइल */
+        .autoComplete_wrapper { width: 100% !important; }
+        .form-group input, .form-group select { padding: 14px; border: 1px solid #dcd6e8; border-radius: 10px; font-size: 1em; outline: none; background: #fdfbfe; width: 100% !important; box-sizing: border-box; transition: all 0.3s; color: #333; }
         .form-group input:focus, .form-group select:focus { border-color: #5b32a6; background: #fff; box-shadow: 0 0 0 3px rgba(91, 50, 166, 0.1); }
         
+        /* सजेशन लिस्ट */
+        .autoComplete_wrapper > ul { border-radius: 10px; border-color: #e1daff; box-shadow: 0 8px 20px rgba(0,0,0,0.1); width: 100%; z-index: 999; }
+        .autoComplete_wrapper > ul > li { padding: 12px; font-size: 0.95em; color: #333; }
+        .autoComplete_wrapper > ul > li:hover { background-color: #f5f1ff; color: #5b32a6; }
+
         /* डायनामिक डेस्टिनेशंस */
         #dynamicDestinations { width: 100%; display: none; margin-bottom: 10px; }
         .extra-dest-wrapper { display: flex; align-items: center; gap: 10px; margin-top: 12px; width: 100%; }
-        .extra-dest-wrapper input { flex: 1; padding: 14px; border: 1px solid #dcd6e8; border-radius: 10px; font-size: 1em; box-sizing: border-box; background: #fdfbfe; }
         .btn-remove-dest { background: #ff4d4d; color: white; border: none; padding: 14px 18px; font-weight: bold; border-radius: 10px; cursor: pointer; transition: 0.2s; }
         .btn-remove-dest:hover { background: #e03333; }
 
@@ -82,15 +90,21 @@
         .section-title { text-align: center; color: #3d1a44; margin: 50px 0 25px; font-size: 2.2em; font-weight: 700; position: relative; }
         .section-title::after { content: ''; display: block; width: 60px; height: 4px; background: #5b32a6; margin: 10px auto 0; border-radius: 2px; }
         
-        /* गाड़ियों का प्रीमियम सेक्शन */
+        /* गाड़ियों का प्रीमियम कार्ड डिज़ाइन */
         .fleet-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 30px; }
-        .fleet-card { background: white; border-radius: 16px; padding: 30px; box-shadow: 0 10px 25px rgba(61, 26, 68, 0.05); border-top: 6px solid #5b32a6; text-align: left; display: flex; flex-direction: column; justify-content: space-between; transition: transform 0.3s ease; }
+        .fleet-card { background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 10px 25px rgba(61, 26, 68, 0.05); border-top: 6px solid #5b32a6; text-align: left; display: flex; flex-direction: column; justify-content: space-between; transition: transform 0.3s ease; }
         .fleet-card:hover { transform: translateY(-5px); box-shadow: 0 15px 35px rgba(61, 26, 68, 0.1); }
-        .fleet-card h3 { margin-top: 0; color: #3d1a44; font-size: 1.4em; font-weight: 700; }
-        .fleet-features { list-style: none; padding: 0; margin: 20px 0; }
+        
+        /* इमेज कंटेनर स्टाइल */
+        .fleet-img-container { width: 100%; height: 180px; overflow: hidden; background: #f1eeff; display: flex; align-items: center; justify-content: center; position: relative; }
+        .fleet-img-container img { width: 100%; height: 100%; object-fit: cover; }
+        
+        .fleet-info { padding: 25px; display: flex; flex-direction: column; justify-content: space-between; flex-grow: 1; }
+        .fleet-card h3 { margin-top: 0; color: #3d1a44; font-size: 1.4em; font-weight: 700; margin-bottom: 10px; }
+        .fleet-features { list-style: none; padding: 0; margin: 15px 0 20px 0; }
         .fleet-features li { margin-bottom: 10px; font-size: 0.98em; color: #444; display: flex; align-items: center; }
         
-        .btn-book { display: block; text-align: center; background: #5b32a6; color: white; padding: 14px; font-weight: bold; text-decoration: none; border-radius: 10px; transition: all 0.3s; margin-top: 15px; border: none; font-size: 1em; cursor: pointer; }
+        .btn-book { display: block; text-align: center; background: #5b32a6; color: white; padding: 14px; font-weight: bold; text-decoration: none; border-radius: 10px; transition: all 0.3s; border: none; font-size: 1em; cursor: pointer; width: 100%; box-sizing: border-box; }
         .btn-book:hover { background: #3d1a44; box-shadow: 0 4px 12px rgba(61, 26, 68, 0.2); }
 
         /* इन्फो सेक्शन */
@@ -101,16 +115,12 @@
         .badge { background: #f5f3f9; padding: 10px 18px; border-radius: 8px; font-size: 0.9em; font-weight: 600; color: #3d1a44; border: 1px solid #e1daff; }
         .badge.advance { background: #fbc531; color: #222; border-color: #fbc531; font-weight: 700; }
 
-        /* UPI और QR कोड बॉक्स */
         .upi-box { background: #fdfaff; border: 1px solid #e1daff; padding: 20px; border-radius: 12px; margin-top: 15px; text-align: center; }
         .upi-id-text { font-size: 1.15em; color: #5b32a6; font-weight: bold; background: #fff; padding: 10px 15px; border-radius: 8px; display: inline-block; border: 2px dashed #5b32a6; margin-bottom: 12px; word-break: break-all; }
         .qr-code-img { width: 160px; height: auto; margin: 5px auto; background: #fff; display: block; border: 1px solid #ddd; padding: 5px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
 
-        /* मैप कंटेनर फिक्स */
-        .map-container { margin-top: 20px; border-radius: 14px; overflow: hidden; box-shadow: 0 8px 20px rgba(0,0,0,0.08); border: 1px solid #e1daff; height: 300px; }
-
-        footer { background-color: #1a1a1a; color: #ccc; text-align: center; padding: 30px; font-size: 0.95em; margin-top: 80px; line-height: 1.6; }
-        footer p { margin: 5px 0; }
+        .map-container { margin-top: 20px; border-radius: 14px; overflow: hidden; box-shadow: 0 8px 20px rgba(0,0,0,0.08); border: 1px solid #e1daff; height: 350px; }
+        footer { background-color: #1a1a1a; color: #ccc; text-align: center; padding: 30px; font-size: 0.95em; margin-top: 80px; }
     </style>
 </head>
 <body>
@@ -143,11 +153,11 @@
             <div class="form-grid">
                 <div class="form-group">
                     <label>कहाँ से (From Location)</label>
-                    <input type="text" id="fromLoc" placeholder="उदा. शिर्डी" required>
+                    <input type="text" id="fromLoc" placeholder="शहर या जगह का नाम लिखना शुरू करें..." autocomplete="off" required>
                 </div>
                 <div class="form-group">
                     <label>कहाँ तक (To Destination)</label>
-                    <input type="text" id="toLoc" placeholder="उदा. पुणे" required>
+                    <input type="text" id="toLoc" placeholder="जाने वाले शहर का नाम लिखें..." autocomplete="off" required>
                 </div>
             </div>
 
@@ -178,55 +188,64 @@
         <div class="fleet-grid">
             
             <div class="fleet-card">
-                <div>
+                <div class="fleet-img-container">
+                    <img src="hatchback.jpg" onerror="this.src='https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=500&q=80';" alt="Sai Cab Safar WagonR">
+                </div>
+                <div class="fleet-info">
                     <h3>🚗 Hatchback (WagonR / Celerio)</h3>
-                    <p style="color:#666; font-size:0.95em; line-height:1.4;">छोटे परिवारों के लिए सबसे किफायती और बजट फ्रेंडली गाड़ी।</p>
+                    <p style="color:#666; font-size:0.95em; line-height:1.4; margin:0;">छोटे परिवारों के लिए सबसे किफायती और बजट फ्रेंडली गाड़ी।</p>
                     <ul class="fleet-features">
                         <li>👥 4 पैसेंजर सीट्स</li>
                         <li>❄️ पावरफुल AC उपलब्ध</li>
                         <li>💰 सबसे कम और पारदर्शी दरें</li>
                     </ul>
+                    <button class="btn-book" onclick="selectCabAndScroll('Hatchback (WagonR)')">बुकिंग फॉर्म में चुनें</button>
                 </div>
-                <button class="btn-book" onclick="selectCabAndScroll('Hatchback (WagonR)')">बुकिंग फॉर्म में चुनें</button>
             </div>
 
             <div class="fleet-card">
-                <div>
+                <div class="fleet-img-container">
+                    <img src="sedan.jpg" onerror="this.src='https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=500&q=80';" alt="Sai Cab Safar Dzire">
+                </div>
+                <div class="fleet-info">
                     <h3>🚖 Sedan (Dzire / Etios)</h3>
-                    <p style="color:#666; font-size:0.95em; line-height:1.4;">लोकल साइडसीन या लॉन्ग ड्राइव के लिए सबसे लोकप्रिय विकल्प।</p>
+                    <p style="color:#666; font-size:0.95em; line-height:1.4; margin:0;">लोकल साइडसीन या लॉन्ग ड्राइव के लिए सबसे लोकप्रिय विकल्प।</p>
                     <ul class="fleet-features">
                         <li>👥 4+1 पैसेंजर सीट्स</li>
                         <li>❄️ बेहतरीन चिलिंग AC</li>
                         <li>🛣️ वन-वे और राउंड ट्रिप के लिए बेस्ट</li>
                     </ul>
+                    <button class="btn-book" onclick="selectCabAndScroll('Sedan (Dzire / Etios)')">बुकिंग फॉर्म में चुनें</button>
                 </div>
-                <button class="btn-book" onclick="selectCabAndScroll('Sedan (Dzire / Etios)')">बुकिंग फॉर्म में चुनें</button>
             </div>
 
             <div class="fleet-card">
-                <div>
+                <div class="fleet-img-container">
+                    <img src="ertiga.jpg" onerror="this.src='https://images.unsplash.com/photo-1583121274602-3e2820c69888?auto=format&fit=crop&w=500&q=80';" alt="Sai Cab Safar Ertiga">
+                </div>
+                <div class="fleet-info">
                     <h3>🚐 SUV (Ertiga)</h3>
-                    <p style="color:#666; font-size:0.95em; line-height:1.4;">पारिवारिक लंबी यात्राओं के लिए सबसे आरामदायक 7-सीटर गाड़ी।</p>
+                    <p style="color:#666; font-size:0.95em; line-height:1.4; margin:0;">पारिवारिक लंबी यात्राओं के लिए सबसे आरामदायक 7-सीटर गाड़ी।</p>
                     <ul class="fleet-features">
                         <li>👥 6+1 पैसेंजर सीट्स</li>
                         <li>❄️ डबल AC वेंट्स (Rear AC)</li>
                         <li>Family ट्रिप्स के लिए सबसे बेस्ट राइड</li>
                     </ul>
+                    <button class="btn-book" onclick="selectCabAndScroll('Ertiga (SUV - 6+1 Seater)')">बुकिंग फॉर्म में चुनें</button>
                 </div>
-                <button class="btn-book" onclick="selectCabAndScroll('Ertiga (SUV - 6+1 Seater)')">बुकिंग फॉर्म में चुनें</button>
             </div>
 
         </div>
 
         <div class="info-section">
             <div class="info-grid">
-                
                 <div>
                     <h3 style="color: #3d1a44; margin-top:0; font-weight: 700;">📍 हमारा कार्यालय (Address)</h3>
                     <p style="font-weight: 700; margin-bottom: 5px; color: #5b32a6; font-size: 1.1em;">साईं कैब सफर (Sai Cab Safar)</p>
                     <p style="margin: 0; line-height: 1.6; color: #444; font-size: 0.98em;">
-                        Nearby Sai Ashram Bhaktniwas,<br>
-                        Shirdi, Maharashtra - 423109
+                        Sai Ashram Bhaktniwas No.2, <br>
+                        In front of main gate, Shirdi,<br>
+                        Maharashtra - 423109
                     </p>
                     <p style="margin-top: 18px; color: #444; font-size: 0.98em; line-height: 1.6;">
                         📞 <strong>फ़ोन:</strong> +91 9049133130<br>
@@ -236,40 +255,65 @@
 
                 <div>
                     <h3 style="color: #3d1a44; margin-top:0; font-weight: 700;">💳 भुगतान के विकल्प (Payments)</h3>
-                    <p style="color:#555; font-size:0.95em; line-height: 1.5;">सीट कन्फर्म करने के लिए नीचे दिए गए UPI पर या QR कोड स्कैन करके एडवांस पेमेंट करें:</p>
                     <div class="payment-badges">
                         <div class="badge advance">⭐ Advance Booking Open</div>
                         <div class="badge">PhonePe</div>
                         <div class="badge">Google Pay</div>
-                        <div class="badge">UPI / BHIM</div>
                     </div>
-                    
                     <div class="upi-box">
                         <span class="upi-id-text">UPI ID: Q598238767@ybl</span>
                         <p style="margin: 5px 0 0 0; font-size: 0.9em; color: #2c2c2c; font-weight: 700;">Sai Cab Safar Tours And Travels</p>
-                        <p style="margin: 2px 0 10px 0; font-size: 0.82em; color: #666;">Scan QR Code to Pay</p>
                         <img class="qr-code-img" src="qr.png" onerror="this.src='https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=upi://pay?pa=Q598238767@ybl&pn=Sai%20Cab%20Safar%20Tours%20And%20Travels';" alt="Sai Cab Safar PhonePe QR">
                     </div>
                 </div>
-
             </div>
 
             <h3 style="color: #3d1a44; margin-top: 45px; text-align: left; font-weight: 700;">🗺️ साईं कैब सफर (Sai Cab Safar) - मुख्य कार्यालय, शिर्डी</h3>
             <div class="map-container">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3759.4795325983764!2d74.4761403!3d19.5639144!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bdc5b9679f0fb8b%3A0x6b9d6eb49b800ca8!2sSai%20Ashram%20Bhaktniwas!5e0!3m2!1sen!2sin!4v1717900000000!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                <iframe src="http://googleusercontent.com/maps.google.com/6" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
         </div>
-
     </div>
 
     <footer>
         <p style="font-weight: 600; color: #fff;">© 2026 Sai Cab Safar. All Rights Reserved.</p>
-        <p style="font-size: 0.85em; opacity: 0.7; margin-top: 5px;">Premium Shirdi Taxi Service | Reliable & Safe Journeys</p>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@10.2.7/dist/autoComplete.min.js"></script>
     <script>
-        var destCount = 0;
+        function initAutocomplete(inputId) {
+            return new autoComplete({
+                selector: "#" + inputId,
+                placeHolder: "शहर का नाम ढूंढें...",
+                data: {
+                    src: async (query) => {
+                        try {
+                            const source = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${query}&countrycodes=in&addressdetails=1&limit=5`);
+                            const data = await source.json();
+                            return data.map(item => item.display_name);
+                        } catch (error) {
+                            return [];
+                        }
+                    },
+                    keys: ["value"]
+                },
+                resultsList: { maxResults: 5 },
+                resultItem: { highlight: true },
+                events: {
+                    input: {
+                        selection: (event) => {
+                            const selection = event.detail.selection.value;
+                            document.querySelector("#" + inputId).value = selection;
+                        }
+                    }
+                }
+            });
+        }
 
+        const fromAutocomplete = initAutocomplete("fromLoc");
+        const toAutocomplete = initAutocomplete("toLoc");
+
+        var destCount = 0;
         function toggleMultiDest(show) {
             var btn = document.getElementById('btnAddDest');
             var container = document.getElementById('dynamicDestinations');
@@ -287,23 +331,24 @@
         function addExtraDestination() {
             destCount++;
             var container = document.getElementById('dynamicDestinations');
-            
             var div = document.createElement('div');
             div.className = 'extra-dest-wrapper';
             div.id = 'destWrapper_' + destCount;
             
+            const randId = "extraLoc_" + destCount;
             div.innerHTML = `
-                <input type="text" class="extra-city-input" placeholder="उदा. अगला शहर (पुणे/मुंबई/नाशिक)" required>
+                <div class="form-group">
+                    <input type="text" id="${randId}" class="extra-city-input" placeholder="अगला शहर चुनें..." autocomplete="off" required>
+                </div>
                 <button class="btn-remove-dest" onclick="removeDestination(${destCount})">✕</button>
             `;
             container.appendChild(div);
+            initAutocomplete(randId);
         }
 
         function removeDestination(id) {
             var element = document.getElementById('destWrapper_' + id);
-            if (element) {
-                element.remove();
-            }
+            if (element) element.remove();
         }
 
         function selectCabAndScroll(cabValue) {
@@ -319,7 +364,7 @@
             var tripType = document.querySelector('input[name="triptype"]:checked').value;
             
             if(!from || !to || !date) {
-                alert("कृपया 'कहाँ से', 'कहाँ तक' और 'यात्रा की तारीख' पूरी तरह भरें।");
+                alert("कृपया पूरी जानकारी भरें।");
                 return;
             }
             
@@ -327,11 +372,13 @@
             var extraInputs = document.querySelectorAll('.extra-city-input');
             extraInputs.forEach(function(input) {
                 if(input.value.trim() !== "") {
-                    extraCities.push(input.value.trim());
+                    extraCities.push(input.value.trim().split(',')[0]);
                 }
             });
 
-            var routeText = to;
+            var cleanFrom = from.split(',')[0];
+            var cleanTo = to.split(',')[0];
+            var routeText = cleanTo;
             if(extraCities.length > 0) {
                 routeText += " ➡️ " + extraCities.join(" ➡️ ");
             }
@@ -339,14 +386,13 @@
             var text = "✨ *नया बुकिंग अनुरोध - Sai Cab Safar* ✨%0A%0A";
             text += "🚩 *यात्रा का प्रकार:* " + encodeURIComponent(tripType) + "%0A";
             text += "🚗 *चुनी गई गाड़ी:* " + encodeURIComponent(cab) + "%0A";
-            text += "📍 *कहाँ से (From):* " + encodeURIComponent(from) + "%0A";
+            text += "📍 *कहाँ से (From):* " + encodeURIComponent(cleanFrom) + "%0A";
             text += "🏁 *रूट (Route):* " + encodeURIComponent(routeText) + "%0A";
             text += "📅 *तारीख (Date):* " + encodeURIComponent(date) + "%0A%0A";
-            text += "💬 _कृपया बुकिंग कन्फर्म करें और एडवांस पेमेंट की डिटेल्स भेजें।_";
+            text += "💬 _कृपया बुकिंग कन्फर्म करें।_";
             
             window.open("https://wa.me/919049133130?text=" + text, "_blank");
         }
     </script>
-
 </body>
 </html>
