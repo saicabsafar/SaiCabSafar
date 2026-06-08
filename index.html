@@ -3,71 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sai Cab Safar - Shirdi Premium Taxi Service</title>
+    <title>Sai Cab Safar - Shirdi</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@10.2.7/dist/css/autoComplete.min.css">
     <style>
-        /* CSS कोड वही रखें जो पहले था, ताकि डिज़ाइन न बिगड़े */
-        body { font-family: sans-serif; background: #f3f1f7; }
-        .search-box { background: white; padding: 20px; border-radius: 15px; margin: 20px; }
-        .btn-add-dest { background: #fff; color: #5b32a6; border: 2px dashed #5b32a6; padding: 10px; border-radius: 10px; cursor: pointer; margin-top: 10px; text-align: center; display: none; }
+        body { font-family: sans-serif; background: #f3f1f7; padding: 20px; }
+        .search-box { background: white; padding: 25px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .form-group { margin-bottom: 15px; }
+        input { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 8px; box-sizing: border-box; }
+        .btn-add-dest { display: none; margin-top: 10px; padding: 10px; background: #eee; border: 2px dashed #5b32a6; cursor: pointer; text-align: center; color: #5b32a6; font-weight: bold; }
     </style>
 </head>
 <body>
 
-    <div class="search-box">
-        <h3>🚖 ऑनलाइन गाड़ी बुक करें</h3>
-        
-        <div class="trip-types">
-            <input type="radio" id="oneway" name="triptype" value="One Way" checked onclick="toggleMultiDest(false)">
-            <label for="oneway">वन-वे</label>
-            <input type="radio" id="roundtrip" name="triptype" value="Round Trip" onclick="toggleMultiDest(true)">
-            <label for="roundtrip">राउंड-ट्रिप</label>
-        </div>
-        
-        <div class="form-group">
-            <label>कहाँ से</label>
-            <input type="text" id="fromLoc" placeholder="शहर का नाम लिखें...">
-        </div>
-        <div class="form-group">
-            <label>कहाँ तक</label>
-            <input type="text" id="toLoc" placeholder="शहर का नाम लिखें...">
-        </div>
-
-        <div id="dynamicDestinations"></div>
-        <div id="btnAddDest" class="btn-add-dest" onclick="addExtraDestination()">➕ अगला शहर जोड़ें</div>
+<div class="search-box">
+    <h3>🚖 ऑनलाइन गाड़ी बुक करें</h3>
+    <div>
+        <input type="radio" name="trip" id="oneway" checked onclick="toggleDest(false)"> <label for="oneway">वन-वे</label>
+        <input type="radio" name="trip" id="round" onclick="toggleDest(true)"> <label for="round">राउंड-ट्रिप</label>
     </div>
+    <div class="form-group"><input type="text" id="fromLoc" placeholder="कहाँ से (From)..."></div>
+    <div class="form-group"><input type="text" id="toLoc" placeholder="कहाँ तक (To)..."></div>
+    <div id="dynamicDestinations"></div>
+    <div id="btnAddDest" class="btn-add-dest" onclick="addDest()">➕ अगला शहर जोड़ें</div>
+</div>
 
-    <script src="https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@10.2.7/dist/autoComplete.min.js"></script>
-    <script>
-        function initAutocomplete(inputId) {
-            new autoComplete({
-                selector: "#" + inputId,
-                data: {
-                    src: async (query) => {
-                        const source = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${query}&countrycodes=in&limit=5`);
-                        const data = await source.json();
-                        return data.map(item => item.display_name);
-                    }
-                },
-                resultItem: { highlight: true },
-                events: { input: { selection: (event) => { document.querySelector("#" + inputId).value = event.detail.selection.value; } } }
-            });
-        }
+<script src="https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@10.2.7/dist/autoComplete.min.js"></script>
+<script>
+    function initAC(id) {
+        new autoComplete({
+            selector: "#" + id,
+            data: { src: async (q) => { 
+                const res = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${q}&countrycodes=in&limit=5`);
+                return (await res.json()).map(i => i.display_name);
+            }},
+            events: { input: { selection: (e) => { document.querySelector("#" + id).value = e.detail.selection.value; }}}
+        });
+    }
+    initAC("fromLoc"); initAC("toLoc");
 
-        // शुरुआत में इनपुट को इनिशियलाइज़ करें
-        initAutocomplete("fromLoc");
-        initAutocomplete("toLoc");
-
-        function toggleMultiDest(show) {
-            document.getElementById('btnAddDest').style.display = show ? 'block' : 'none';
-        }
-
-        function addExtraDestination() {
-            var container = document.getElementById('dynamicDestinations');
-            var randId = "extra_" + Date.now();
-            container.innerHTML += `<div class="form-group"><input type="text" id="${randId}" placeholder="अगला शहर..."></div>`;
-            initAutocomplete(randId);
-        }
-    </script>
+    function toggleDest(show) { document.getElementById('btnAddDest').style.display = show ? 'block' : 'none'; }
+    function addDest() {
+        var id = "extra_" + Date.now();
+        document.getElementById('dynamicDestinations').innerHTML += `<div class="form-group"><input type="text" id="${id}" placeholder="अगला शहर..."></div>`;
+        initAC(id);
+    }
+</script>
 </body>
 </html>
