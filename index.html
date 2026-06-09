@@ -3,31 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sai Cab Safar | Premium Taxi</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <title>Sai Cab Safar - Premium Taxi Services</title>
     <style>
-        :root { --primary: #0a1f44; --accent: #ffc107; }
-        body { font-family: 'Segoe UI', sans-serif; background: #f4f4f4; margin: 0; }
-        header { background: var(--primary); color: white; padding: 20px; text-align: center; font-weight: bold; }
-        .booking-box { background: white; margin: -20px 15px 20px 15px; padding: 20px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); border-top: 4px solid var(--accent); }
-        .tab-bar { display: flex; gap: 10px; margin-bottom: 15px; }
-        .tab { flex: 1; padding: 12px; background: #eee; text-align: center; border-radius: 4px; font-weight: bold; cursor: pointer; }
-        .tab.active { background: var(--accent); color: var(--primary); }
-        input, select { width: 100%; padding: 12px; margin: 5px 0; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
-        .btn-book { background: var(--accent); color: var(--primary); padding: 15px; width: 100%; border: none; font-weight: bold; font-size: 16px; border-radius: 4px; cursor: pointer; }
-        .footer { text-align: center; padding: 20px; background: #333; color: white; margin-top: 20px; }
-        .wa-float { position: fixed; bottom: 20px; right: 20px; background: #25d366; color: white; padding: 15px 20px; border-radius: 50px; text-decoration: none; z-index: 1000; }
+        body { font-family: 'Segoe UI', sans-serif; background: #f4f7f6; margin: 0; color: #333; }
+        .hero { background: linear-gradient(135deg, #007bff, #0056b3); color: white; padding: 50px 20px; text-align: center; }
+        .booking-card { background: white; width: 92%; max-width: 450px; margin: -30px auto 20px; padding: 25px; border-radius: 15px; box-shadow: 0 15px 30px rgba(0,0,0,0.15); }
+        input, select { width: 100%; padding: 14px; margin: 10px 0; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; }
+        button { width: 100%; padding: 15px; background: #e67e22; color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 16px; }
+        .features { display: flex; justify-content: space-around; padding: 20px; background: white; margin-top: 20px; }
+        .feature-item { text-align: center; font-size: 0.8em; }
+        .whatsapp-float { position: fixed; bottom: 20px; right: 20px; background: #25d366; color: white; padding: 15px 20px; border-radius: 50px; font-weight: bold; text-decoration: none; box-shadow: 0 4px 10px rgba(0,0,0,0.2); z-index: 1000; }
+        .contact-box { text-align: center; padding: 20px; background: #fff; margin-top: 20px; border-top: 1px solid #eee; }
     </style>
 </head>
 <body>
 
-<header>SAI CAB SAFAR</header>
+<div class="hero">
+    <h1>Sai Cab Safar</h1>
+    <p>प्रीमियम कैब सेवा, अब आपकी उंगलियों पर</p>
+</div>
 
-<div class="booking-box">
-    <div class="tab-bar">
-        <div class="tab active" onclick="selectTrip('One Way', this)">ONE WAY</div>
-        <div class="tab" onclick="selectTrip('Round Trip', this)">ROUND TRIP</div>
-    </div>
+<div class="booking-card">
+    <select id="tripType" onchange="toggleExtra()">
+        <option value="One Way">One Way</option>
+        <option value="Round Trip">Round Trip</option>
+    </select>
     
     <select id="cabType">
         <option>Hatchback</option>
@@ -36,41 +36,50 @@
         <option>Innova Crysta</option>
         <option>Tempo Traveller</option>
     </select>
-    
-    <input type="text" id="from" placeholder="From (Pickup)">
-    <input type="text" id="to" placeholder="To (Drop)">
+
+    <input type="text" id="pickup" placeholder="पिकअप स्थान (Pickup)" required>
+    <input type="text" id="drop" placeholder="ड्रॉप स्थान (Drop)" required>
     
     <div id="extraDest" style="display:none;">
-        <input type="text" placeholder="Add More Destination (Optional)">
+        <input type="text" id="moreDest" placeholder="Add More Destination (Optional)">
     </div>
-    
+
     <input type="date" id="date">
-    <button class="btn-book" onclick="bookNow()">CHECK PRICE & BOOK NOW</button>
+    <button onclick="bookCab()">Search Cabs Now</button>
 </div>
 
-<div class="footer">
-    <p>Customer Care: <a href="tel:9049133130" style="color:var(--accent)">9049133130</a></p>
-    <p>© 2026 Sai Cab Safar</p>
+<div class="features">
+    <div class="feature-item">✅ सुरक्षित राइड्स</div>
+    <div class="feature-item">✅ अनुभवी ड्राइवर</div>
+    <div class="feature-item">✅ 24/7 सेवा</div>
 </div>
 
-<a href="https://wa.me/919049133130" class="wa-float"><i class="fab fa-whatsapp"></i> Chat</a>
+<div class="contact-box">
+    <p>कस्टमर केयर: <b><a href="tel:9049133130">9049133130</a></b></p>
+</div>
+
+<a href="https://wa.me/919049133130" class="whatsapp-float">💬 WhatsApp Chat</a>
 
 <script>
-    let selectedTrip = "One Way";
-    
-    function selectTrip(type, element) {
-        selectedTrip = type;
-        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-        element.classList.add('active');
-        // Round Trip होने पर एक्स्ट्रा डेस्टिनेशन का बॉक्स दिखाना
-        document.getElementById('extraDest').style.display = (type === 'Round Trip') ? 'block' : 'none';
+    function toggleExtra() {
+        let trip = document.getElementById('tripType').value;
+        document.getElementById('extraDest').style.display = (trip === 'Round Trip') ? 'block' : 'none';
     }
 
-    function bookNow() {
-        let from = document.getElementById('from').value;
-        let to = document.getElementById('to').value;
-        let cab = document.getElementById('cabType').value;
-        window.open(`https://wa.me/919049133130?text=Booking: ${selectedTrip}%0ACab: ${cab}%0AFrom: ${from}%0ATo: ${to}`, '_blank');
+    function bookCab() {
+        var pickup = document.getElementById('pickup').value;
+        var drop = document.getElementById('drop').value;
+        var cab = document.getElementById('cabType').value;
+        var trip = document.getElementById('tripType').value;
+        var more = document.getElementById('moreDest').value;
+        var phone = "919049133130";
+
+        if(pickup && drop) {
+            var url = "https://wa.me/" + phone + "?text=Hello, I want to book a cab:%0A*Trip:* " + trip + "%0A*Cab:* " + cab + "%0A*From:* " + pickup + "%0A*To:* " + drop + (more ? "%0A*Extra:* " + more : "");
+            window.open(url, '_blank');
+        } else {
+            alert("कृपया सभी जानकारी भरें!");
+        }
     }
 </script>
 </body>
