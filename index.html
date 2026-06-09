@@ -3,65 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sai Cab Safar - आपकी सुरक्षित यात्रा</title>
+    <title>Sai Cab Safar - Booking</title>
     <style>
-        body { font-family: 'Segoe UI', sans-serif; background: #f4f7f6; margin: 0; padding: 20px; }
-        .card { max-width: 400px; margin: auto; background: white; padding: 25px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-        h1 { color: #2c3e50; text-align: center; }
-        p { color: #555; text-align: center; font-size: 0.9em; }
+        body { font-family: sans-serif; background: #f0f2f5; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+        .card { background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); width: 90%; max-width: 400px; text-align: center; }
+        h1 { color: #2c3e50; }
         input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; }
-        button { width: 100%; padding: 12px; background: #27ae60; color: white; border: none; border-radius: 8px; font-size: 16px; cursor: pointer; }
-        button:hover { background: #219150; }
+        button { width: 100%; padding: 15px; background: #25d366; color: white; border: none; border-radius: 8px; font-size: 16px; cursor: pointer; }
     </style>
 </head>
 <body>
 
 <div class="card">
     <h1>✨ साई कैब सफर ✨</h1>
-    <p>आपकी यात्रा, हमारी जिम्मेदारी। बुकिंग के लिए नीचे विवरण भरें:</p>
-    
+    <p>बुकिंग के लिए फॉर्म भरें</p>
     <form id="bookingForm">
         <input type="text" id="name" placeholder="आपका नाम" required>
         <input type="text" id="pickup" placeholder="पिकअप स्थान" required>
         <input type="text" id="drop" placeholder="ड्रॉप स्थान" required>
-        <input type="tel" id="phone" placeholder="आपका मोबाइल नंबर" required>
-        <button type="submit" id="submitBtn">अभी बुक करें</button>
+        <button type="button" onclick="sendWhatsApp()">WhatsApp पर बुक करें</button>
     </form>
 </div>
 
 <script>
-    // यहाँ अपना Google Apps Script का URL डालें जो आपको पिछली बार मिला था
-    const scriptURL = 'YOUR_GOOGLE_APPS_SCRIPT_URL';
+    function sendWhatsApp() {
+        var name = document.getElementById('name').value;
+        var pickup = document.getElementById('pickup').value;
+        var drop = document.getElementById('drop').value;
+        var phone = "919049133130"; 
 
-    document.getElementById('bookingForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        let btn = document.getElementById('submitBtn');
-        btn.innerText = "भेज रहा हूँ...";
-        
-        let formData = {
-            name: document.getElementById('name').value,
-            pickup: document.getElementById('pickup').value,
-            drop: document.getElementById('drop').value,
-            phone: document.getElementById('phone').value
-        };
-
-        fetch(scriptURL, { 
-            method: 'POST', 
-            mode: 'no-cors',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(formData) 
-        })
-        .then(() => {
-            alert("धन्यवाद! आपकी बुकिंग रिक्वेस्ट मिल गई है।");
-            document.getElementById('bookingForm').reset();
-            btn.innerText = "अभी बुक करें";
-        })
-        .catch(err => {
-            alert("कुछ गलती हुई, कृपया फिर से प्रयास करें।");
-            btn.innerText = "अभी बुक करें";
-        });
-    });
+        if(name && pickup && drop) {
+            var url = "https://wa.me/" + phone + "?text=Namaste, meri ek nayi booking hai:%0A%0ANama: " + name + "%0APickup: " + pickup + "%0ADrop: " + drop;
+            window.open(url, '_blank');
+        } else {
+            alert("Kripya sabhi jaankari bharein!");
+        }
+    }
 </script>
-
 </body>
 </html>
