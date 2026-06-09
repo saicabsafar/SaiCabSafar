@@ -14,9 +14,9 @@
         .tab { flex: 1; padding: 12px; background: #eee; text-align: center; border-radius: 4px; font-weight: bold; cursor: pointer; }
         .tab.active { background: var(--accent); color: var(--primary); }
         input, select { width: 100%; padding: 12px; margin: 5px 0; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
-        .btn-add { background: #3498db; color: white; border: none; padding: 8px; border-radius: 4px; cursor: pointer; margin-bottom: 10px; font-size: 12px; }
         .btn-book { background: var(--accent); color: var(--primary); padding: 15px; width: 100%; border: none; font-weight: bold; font-size: 16px; border-radius: 4px; cursor: pointer; }
         .section { padding: 20px; background: white; margin-top: 15px; }
+        .review-card { border-left: 4px solid var(--accent); padding: 10px; background: #f9f9f9; margin-bottom: 15px; font-style: italic; }
         .footer { text-align: center; padding: 20px; background: #333; color: white; margin-top: 20px; }
         .wa-float { position: fixed; bottom: 20px; right: 20px; background: #25d366; color: white; padding: 15px 20px; border-radius: 50px; text-decoration: none; z-index: 1000; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
     </style>
@@ -30,30 +30,20 @@
         <div class="tab active" onclick="selectTrip('One Way', this)">ONE WAY</div>
         <div class="tab" onclick="selectTrip('Round Trip', this)">ROUND TRIP</div>
     </div>
-    
     <select id="cabType">
-        <option>Hatchback</option>
-        <option>Sedan</option>
-        <option>SUV</option>
-        <option>Innova Crysta</option>
-        <option>Tempo Traveller</option>
+        <option>Hatchback</option><option>Sedan</option><option>SUV</option>
+        <option>Innova Crysta</option><option>Tempo Traveller</option>
     </select>
-    
     <input type="text" id="from" placeholder="From (Pickup)">
-    <div id="destinations">
-        <input type="text" class="dest-input" placeholder="To (Drop)">
-    </div>
-    <button class="btn-add" onclick="addDestination()" id="addBtn" style="display:none;">+ Add Another Destination</button>
-    
+    <div id="destinations"><input type="text" class="dest-input" placeholder="To (Drop)"></div>
     <button class="btn-book" onclick="bookNow()">CHECK PRICE & BOOK NOW</button>
 </div>
 
 <div class="section">
-    <h2>Customer Reviews</h2>
-    <input type="text" id="custName" placeholder="आपका नाम">
-    <textarea id="custReview" style="width:100%; padding:10px; border:1px solid #ccc; border-radius:4px; box-sizing:border-box;" placeholder="अपना अनुभव लिखें..."></textarea>
-    <p style="font-size:12px; color:#666;">अपनी यात्रा की फोटो भी शेयर करें (WhatsApp पर):</p>
-    <button class="btn-add" onclick="sendReview()" style="background:#25d366; width:100%;">Share Review on WhatsApp</button>
+    <h2>Customer Testimonials</h2>
+    <div class="review-card">"बहुत ही शानदार सर्विस! ड्राइवर समय पर आए और गाड़ी बहुत साफ़ थी।" - <b>राहुल शर्मा</b></div>
+    <div class="review-card">"किफायती दाम और सुरक्षित सफर। साई कैब सफर सबसे बेस्ट है।" - <b>प्रिया पटेल</b></div>
+    <p style="font-size:12px; color:#555;">आप अपना रिव्यु WhatsApp पर भेजें, हम यहाँ जोड़ देंगे!</p>
 </div>
 
 <div class="footer">
@@ -66,27 +56,11 @@
     function selectTrip(type, element) {
         document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
         element.classList.add('active');
-        document.getElementById('addBtn').style.display = (type === 'Round Trip') ? 'block' : 'none';
     }
-
-    function addDestination() {
-        let input = document.createElement('input');
-        input.type = 'text'; input.className = 'dest-input';
-        input.placeholder = 'Add More Destination';
-        input.style.marginTop = '5px';
-        document.getElementById('destinations').appendChild(input);
-    }
-
     function bookNow() {
         let from = document.getElementById('from').value;
         let dests = Array.from(document.querySelectorAll('.dest-input')).map(i => i.value).join(', ');
         window.open(`https://wa.me/919049133130?text=Booking: From ${from} to ${dests}`, '_blank');
-    }
-
-    function sendReview() {
-        let name = document.getElementById('custName').value;
-        let review = document.getElementById('custReview').value;
-        window.open(`https://wa.me/919049133130?text=Customer Review:%0AName: ${name}%0AReview: ${review}`, '_blank');
     }
 </script>
 </body>
