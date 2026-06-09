@@ -3,41 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sai Cab Safar - Booking</title>
+    <title>Sai Cab Safar - Professional Cab Booking</title>
     <style>
-        body { font-family: sans-serif; background: #f0f2f5; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
-        .card { background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); width: 90%; max-width: 400px; text-align: center; }
-        h1 { color: #2c3e50; }
-        input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; }
-        button { width: 100%; padding: 15px; background: #25d366; color: white; border: none; border-radius: 8px; font-size: 16px; cursor: pointer; }
+        body { font-family: 'Segoe UI', sans-serif; background: #f8f9fa; margin: 0; }
+        .hero { background: #007bff; color: white; padding: 50px 20px; text-align: center; }
+        .booking-card { background: white; width: 90%; max-width: 500px; margin: -40px auto 20px; padding: 25px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        input, select { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; }
+        button { width: 100%; padding: 14px; background: #ffc107; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; }
     </style>
 </head>
 <body>
 
-<div class="card">
-    <h1>✨ साई कैब सफर ✨</h1>
-    <p>बुकिंग के लिए फॉर्म भरें</p>
-    <form id="bookingForm">
-        <input type="text" id="name" placeholder="आपका नाम" required>
-        <input type="text" id="pickup" placeholder="पिकअप स्थान" required>
-        <input type="text" id="drop" placeholder="ड्रॉप स्थान" required>
-        <button type="button" onclick="sendWhatsApp()">WhatsApp पर बुक करें</button>
-    </form>
+<div class="hero">
+    <h1>Sai Cab Safar</h1>
+    <p>Safe & Reliable Cab Service</p>
+</div>
+
+<div class="booking-card">
+    <select id="tripType">
+        <option value="One Way">One Way</option>
+        <option value="Round Trip">Round Trip</option>
+    </select>
+    <input type="text" id="pickup" placeholder="From (Pickup City)">
+    <input type="text" id="drop" placeholder="To (Drop City)">
+    <input type="date" id="date">
+    <button onclick="bookCab()">Search Cabs</button>
 </div>
 
 <script>
-    function sendWhatsApp() {
-        var name = document.getElementById('name').value;
+    function bookCab() {
         var pickup = document.getElementById('pickup').value;
         var drop = document.getElementById('drop').value;
-        var phone = "919049133130"; 
+        var date = document.getElementById('date').value;
+        var phone = "919049133130";
 
-        if(name && pickup && drop) {
-            var url = "https://wa.me/" + phone + "?text=Namaste, meri ek nayi booking hai:%0A%0ANama: " + name + "%0APickup: " + pickup + "%0ADrop: " + drop;
-            window.open(url, '_blank');
-        } else {
-            alert("Kripya sabhi jaankari bharein!");
-        }
+        var url = "https://wa.me/" + phone + "?text=Hello, I want to book a cab:%0AFrom: " + pickup + "%0ATo: " + drop + "%0ADate: " + date;
+        window.open(url, '_blank');
     }
 </script>
 </body>
