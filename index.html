@@ -8,25 +8,15 @@
     <style>
         :root { --primary: #0a1f44; --accent: #ffc107; }
         body { font-family: 'Segoe UI', sans-serif; background: #f4f4f4; margin: 0; }
-        
-        /* Stylish Bold Header */
-        header { 
-            background: var(--primary); color: white; padding: 25px 10px; 
-            text-align: center; font-weight: 900; font-size: 28px; 
-            text-transform: uppercase; letter-spacing: 2px;
-            border-bottom: 5px solid var(--accent);
-        }
-        
+        header { background: var(--primary); color: white; padding: 25px 10px; text-align: center; font-weight: 900; font-size: 28px; text-transform: uppercase; letter-spacing: 2px; border-bottom: 5px solid var(--accent); }
         .booking-box { background: white; margin: -20px 15px 20px 15px; padding: 20px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
         .tab-bar { display: flex; gap: 10px; margin-bottom: 15px; }
         .tab { flex: 1; padding: 12px; background: #eee; text-align: center; border-radius: 4px; font-weight: bold; cursor: pointer; }
         .tab.active { background: var(--accent); color: var(--primary); }
         input, select { width: 100%; padding: 12px; margin: 5px 0; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        .btn-add { background: #3498db; color: white; border: none; padding: 8px; border-radius: 4px; cursor: pointer; margin-bottom: 10px; font-size: 12px; }
         .btn-book { background: var(--accent); color: var(--primary); padding: 15px; width: 100%; border: none; font-weight: bold; font-size: 16px; border-radius: 4px; cursor: pointer; }
-        
         .section { padding: 20px; background: white; margin-top: 15px; }
-        .feature-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 15px; }
-        .feature-card { background: #f9f9f9; padding: 15px; text-align: center; border-radius: 8px; }
         .footer { text-align: center; padding: 20px; background: #333; color: white; margin-top: 20px; }
         .wa-float { position: fixed; bottom: 20px; right: 20px; background: #25d366; color: white; padding: 15px 20px; border-radius: 50px; text-decoration: none; z-index: 1000; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
     </style>
@@ -50,24 +40,20 @@
     </select>
     
     <input type="text" id="from" placeholder="From (Pickup)">
-    
-    <div id="extraDest" style="display:none;">
-        <input type="text" id="moreDest" placeholder="Add More Destination (Optional)">
+    <div id="destinations">
+        <input type="text" class="dest-input" placeholder="To (Drop)">
     </div>
-    
-    <input type="text" id="to" placeholder="To (Drop)">
+    <button class="btn-add" onclick="addDestination()" id="addBtn" style="display:none;">+ Add Another Destination</button>
     
     <button class="btn-book" onclick="bookNow()">CHECK PRICE & BOOK NOW</button>
 </div>
 
 <div class="section">
-    <h2>Why travel with Sai Cab Safar?</h2>
-    <div class="feature-grid">
-        <div class="feature-card"><i class="fa fa-car"></i><br>Safe Rides</div>
-        <div class="feature-card"><i class="fa fa-user-tie"></i><br>Pro Drivers</div>
-        <div class="feature-card"><i class="fa fa-clock"></i><br>24/7 Support</div>
-        <div class="feature-card"><i class="fa fa-spray-can"></i><br>Clean Cabs</div>
-    </div>
+    <h2>Customer Reviews</h2>
+    <input type="text" id="custName" placeholder="आपका नाम">
+    <textarea id="custReview" style="width:100%; padding:10px; border:1px solid #ccc; border-radius:4px; box-sizing:border-box;" placeholder="अपना अनुभव लिखें..."></textarea>
+    <p style="font-size:12px; color:#666;">अपनी यात्रा की फोटो भी शेयर करें (WhatsApp पर):</p>
+    <button class="btn-add" onclick="sendReview()" style="background:#25d366; width:100%;">Share Review on WhatsApp</button>
 </div>
 
 <div class="footer">
@@ -77,21 +63,30 @@
 <a href="https://wa.me/919049133130" class="wa-float"><i class="fab fa-whatsapp"></i> Chat</a>
 
 <script>
-    let selectedTrip = "One Way";
-    
     function selectTrip(type, element) {
-        selectedTrip = type;
         document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
         element.classList.add('active');
-        document.getElementById('extraDest').style.display = (type === 'Round Trip') ? 'block' : 'none';
+        document.getElementById('addBtn').style.display = (type === 'Round Trip') ? 'block' : 'none';
+    }
+
+    function addDestination() {
+        let input = document.createElement('input');
+        input.type = 'text'; input.className = 'dest-input';
+        input.placeholder = 'Add More Destination';
+        input.style.marginTop = '5px';
+        document.getElementById('destinations').appendChild(input);
     }
 
     function bookNow() {
         let from = document.getElementById('from').value;
-        let to = document.getElementById('to').value;
-        let cab = document.getElementById('cabType').value;
-        let more = document.getElementById('moreDest').value;
-        window.open(`https://wa.me/919049133130?text=Booking: ${selectedTrip}%0ACab: ${cab}%0AFrom: ${from}${more ? '%0AVia: ' + more : ''}%0ATo: ${to}`, '_blank');
+        let dests = Array.from(document.querySelectorAll('.dest-input')).map(i => i.value).join(', ');
+        window.open(`https://wa.me/919049133130?text=Booking: From ${from} to ${dests}`, '_blank');
+    }
+
+    function sendReview() {
+        let name = document.getElementById('custName').value;
+        let review = document.getElementById('custReview').value;
+        window.open(`https://wa.me/919049133130?text=Customer Review:%0AName: ${name}%0AReview: ${review}`, '_blank');
     }
 </script>
 </body>
