@@ -21,8 +21,8 @@
         .tab.active { background: var(--accent); color: var(--primary); }
         
         input, select { width: 100%; padding: 12px; margin: 5px 0; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
-        .btn-add { background: #3498db; color: white; border: none; padding: 8px; border-radius: 4px; cursor: pointer; margin-bottom: 10px; }
-        .btn-book { background: var(--accent); color: var(--primary); padding: 15px; width: 100%; border: none; font-weight: bold; font-size: 16px; border-radius: 4px; cursor: pointer; }
+        .btn-add { background: #3498db; color: white; border: none; padding: 8px; border-radius: 4px; cursor: pointer; margin-bottom: 10px; width: 100%; }
+        .btn-book { background: var(--accent); color: var(--primary); padding: 15px; width: 100%; border: none; font-weight: bold; font-size: 16px; border-radius: 4px; cursor: pointer; margin-top: 10px; }
         
         .section { padding: 20px; background: white; margin-top: 15px; }
         .feature-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 15px; }
@@ -48,8 +48,11 @@
     </select>
     
     <input type="text" id="from" placeholder="From (Pickup)">
-    <div id="destinations"><input type="text" class="dest-input" placeholder="To (Drop)"></div>
-    <button class="btn-add" onclick="addDestination()" id="addBtn" style="display:none;">+ Add Destination</button>
+    
+    <div id="destinations"></div>
+    <button class="btn-add" onclick="addDestination()" id="addBtn" style="display:none;">+ Add Via Destination</button>
+    
+    <input type="text" id="to" placeholder="To (Drop)">
     
     <button class="btn-book" onclick="bookNow()">CHECK PRICE & BOOK NOW</button>
 </div>
@@ -68,7 +71,7 @@
     <h2>Customer Reviews</h2>
     <input type="text" id="custName" placeholder="आपका नाम">
     <textarea id="custReview" style="width:100%; padding:10px; border:1px solid #ccc; border-radius:4px; box-sizing:border-box;" placeholder="अपना अनुभव लिखें..."></textarea>
-    <button class="btn-add" onclick="sendReview()" style="background:#25d366; width:100%; margin-top:10px;">Share Review on WhatsApp</button>
+    <button class="btn-add" onclick="sendReview()" style="background:#25d366; margin-top:10px;">Share Review on WhatsApp</button>
 </div>
 
 <div class="footer">
@@ -87,15 +90,16 @@
     function addDestination() {
         let input = document.createElement('input');
         input.type = 'text'; input.className = 'dest-input';
-        input.placeholder = 'Add More Destination';
-        input.style.marginTop = '5px';
+        input.placeholder = 'Add Via Destination';
+        input.style.marginBottom = '5px';
         document.getElementById('destinations').appendChild(input);
     }
 
     function bookNow() {
         let from = document.getElementById('from').value;
-        let dests = Array.from(document.querySelectorAll('.dest-input')).map(i => i.value).join(', ');
-        window.open(`https://wa.me/919049133130?text=Booking: From ${from} to ${dests}`, '_blank');
+        let to = document.getElementById('to').value;
+        let via = Array.from(document.querySelectorAll('.dest-input')).map(i => i.value).join(' -> ');
+        window.open(`https://wa.me/919049133130?text=Booking: From ${from} Via ${via} To ${to}`, '_blank');
     }
 
     function sendReview() {
