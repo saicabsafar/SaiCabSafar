@@ -8,13 +8,22 @@
     <style>
         :root { --primary: #0a1f44; --accent: #ffc107; }
         body { font-family: 'Segoe UI', sans-serif; background: #f4f4f4; margin: 0; }
-        header { background: var(--primary); color: white; padding: 20px; text-align: center; font-weight: bold; }
-        .booking-box { background: white; margin: -20px 15px 20px 15px; padding: 20px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); border-top: 4px solid var(--accent); }
+        
+        /* Stylish Bold Header */
+        header { 
+            background: var(--primary); color: white; padding: 25px 10px; 
+            text-align: center; font-weight: 900; font-size: 28px; 
+            text-transform: uppercase; letter-spacing: 2px;
+            border-bottom: 5px solid var(--accent);
+        }
+        
+        .booking-box { background: white; margin: -20px 15px 20px 15px; padding: 20px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
         .tab-bar { display: flex; gap: 10px; margin-bottom: 15px; }
         .tab { flex: 1; padding: 12px; background: #eee; text-align: center; border-radius: 4px; font-weight: bold; cursor: pointer; }
         .tab.active { background: var(--accent); color: var(--primary); }
         input, select { width: 100%; padding: 12px; margin: 5px 0; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
         .btn-book { background: var(--accent); color: var(--primary); padding: 15px; width: 100%; border: none; font-weight: bold; font-size: 16px; border-radius: 4px; cursor: pointer; }
+        
         .section { padding: 20px; background: white; margin-top: 15px; }
         .feature-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 15px; }
         .feature-card { background: #f9f9f9; padding: 15px; text-align: center; border-radius: 8px; }
@@ -24,7 +33,7 @@
 </head>
 <body>
 
-<header>SAI CAB SAFAR</header>
+<header>Sai Cab Safar</header>
 
 <div class="booking-box">
     <div class="tab-bar">
@@ -41,13 +50,13 @@
     </select>
     
     <input type="text" id="from" placeholder="From (Pickup)">
-    <input type="text" id="to" placeholder="To (Drop)">
     
     <div id="extraDest" style="display:none;">
         <input type="text" id="moreDest" placeholder="Add More Destination (Optional)">
     </div>
     
-    <input type="date" id="date">
+    <input type="text" id="to" placeholder="To (Drop)">
+    
     <button class="btn-book" onclick="bookNow()">CHECK PRICE & BOOK NOW</button>
 </div>
 
@@ -82,7 +91,7 @@
         let to = document.getElementById('to').value;
         let cab = document.getElementById('cabType').value;
         let more = document.getElementById('moreDest').value;
-        window.open(`https://wa.me/919049133130?text=Booking: ${selectedTrip}%0ACab: ${cab}%0AFrom: ${from}%0ATo: ${to}${more ? '%0AExtra Dest: ' + more : ''}`, '_blank');
+        window.open(`https://wa.me/919049133130?text=Booking: ${selectedTrip}%0ACab: ${cab}%0AFrom: ${from}${more ? '%0AVia: ' + more : ''}%0ATo: ${to}`, '_blank');
     }
 </script>
 </body>
