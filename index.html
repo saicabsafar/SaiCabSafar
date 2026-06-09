@@ -1,60 +1,66 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sai Cab Safar - Shirdi</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Sai Cab Safar | Premium Taxi</title>
+    <style>
+        :root { 
+            --primary: #5b32a6; /* गहरा बैंगनी */
+            --yellow: #fbc531;  /* चमकदार पीला */
+            --accent: #25D366;  /* व्हाट्सएप ग्रीन */
+        }
+        body { font-family: 'Segoe UI', sans-serif; background: #f8f9fa; margin: 0; }
+        
+        /* हेडर में पीला टच */
+        .hero { 
+            background: linear-gradient(135deg, var(--primary), #3d1a44); 
+            color: white; padding: 60px 20px; text-align: center; 
+            border-bottom: 5px solid var(--yellow); 
+        }
+        .hero h1 { font-size: 3em; color: var(--yellow); margin: 0; }
+        
+        /* बुकिंग फॉर्म - पीला हाईलाइट */
+        .main-card { 
+            max-width: 600px; margin: -50px auto 40px; background: white; 
+            padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border: 2px solid var(--yellow);
+        }
+        
+        /* पीले रंग का बुकिंग बटन */
+        .btn-book { 
+            background: var(--yellow); color: #000; border: none; padding: 18px; 
+            width: 100%; font-size: 1.2em; font-weight: bold; border-radius: 12px; 
+            cursor: pointer; transition: 0.3s;
+        }
+        .btn-book:hover { background: #e0ac00; transform: scale(1.02); }
+
+        .fleet-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; padding: 20px; max-width: 1100px; margin: auto; }
+        .car-card { background: white; border-radius: 15px; overflow: hidden; border: 1px solid #ddd; }
+        .car-card h3 { background: var(--yellow); padding: 10px; margin: 0; color: #000; }
+    </style>
 </head>
 <body>
 
-<header>
-    <h1>Sai Cab Safar</h1>
-    <p>Nearby Sai Ashram Bhaktniwas, Shirdi</p>
-</header>
+    <div class="hero">
+        <h1>Sai Cab Safar</h1>
+        <p>आपकी यात्रा, हमारा गौरव</p>
+    </div>
 
-<section class="booking-section">
-    <h2>Book Your Cab</h2>
-    <form id="bookingForm" onsubmit="sendWhatsApp(event)">
-        <input type="text" id="pickup" placeholder="Pickup City" required>
-        <input type="text" id="destination" placeholder="Destination" required>
-        
-        <select id="serviceType">
-            <option value="One Way Trip">One Way Trip</option>
-            <option value="Round Trip">Round Trip</option>
-            <option value="Local / Airport">Local / Airport</option>
-        </select>
+    <div class="main-card">
+        <h3 style="text-align:center;">🚕 आज ही अपनी राइड बुक करें</h3>
+        <input type="text" placeholder="कहाँ से?" style="width:100%; padding:15px; margin:10px 0; border:2px solid var(--primary); border-radius:10px;">
+        <input type="text" placeholder="कहाँ तक?" style="width:100%; padding:15px; margin:10px 0; border:2px solid var(--primary); border-radius:10px;">
+        <button class="btn-book">WhatsApp पर बुक करें 📲</button>
+    </div>
 
-        <input type="date" id="date" required>
-        <input type="time" id="time" required>
-        
-        <button type="submit">Book on WhatsApp</button>
-    </form>
-</section>
-
-<footer>
-    <p>Contact: 9049133130</p>
-    <p>Address: Nearby Sai Ashram Bhaktniwas, Shirdi, MH 423109</p>
-</footer>
-
-<script>
-    function sendWhatsApp(event) {
-        event.preventDefault();
-        let pickup = document.getElementById("pickup").value;
-        let dest = document.getElementById("destination").value;
-        let service = document.getElementById("serviceType").value;
-        let date = document.getElementById("date").value;
-        let time = document.getElementById("time").value;
-
-        let msg = `*New Booking Request*%0A%0A` +
-                  `*Service:* ${service}%0A` +
-                  `*Pickup:* ${pickup}%0A` +
-                  `*Destination:* ${dest}%0A` +
-                  `*Date:* ${date}%0A` +
-                  `*Time:* ${time}`;
-
-        window.open(`https://wa.me/919049133130?text=${msg}`, '_blank');
-    }
-</script>
+    <h2 style="text-align:center;">हमारी फ्लीट</h2>
+    <div class="fleet-container">
+        <div class="car-card"><img src="sedan.jpg.jpg" style="width:100%"><h3>Sedan</h3></div>
+        <div class="car-card"><img src="InnovaCrysta.jpg.jpeg" style="width:100%"><h3>Innova</h3></div>
+        <div class="car-card"><img src="TempoTraveller.jpg.jpeg" style="width:100%"><h3>Tempo</h3></div>
+        <div class="car-card"><img src="ertiga.jpg.jpeg" style="width:100%"><h3>Ertiga</h3></div>
+        <div class="car-card"><img src="hatchback.jpg.webp" style="width:100%"><h3>Hatchback</h3></div>
+    </div>
 </body>
 </html>
