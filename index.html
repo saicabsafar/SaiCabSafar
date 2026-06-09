@@ -3,31 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sai Cab Safar - Professional Cab Booking</title>
+    <title>Sai Cab Safar - Premium Cab Service</title>
     <style>
-        body { font-family: 'Segoe UI', sans-serif; background: #f8f9fa; margin: 0; }
-        .hero { background: #007bff; color: white; padding: 50px 20px; text-align: center; }
+        body { font-family: 'Segoe UI', sans-serif; background: #f8f9fa; margin: 0; color: #333; }
+        .hero { background: #007bff; color: white; padding: 60px 20px; text-align: center; }
         .booking-card { background: white; width: 90%; max-width: 500px; margin: -40px auto 20px; padding: 25px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
         input, select { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; }
-        button { width: 100%; padding: 14px; background: #ffc107; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; }
+        button { width: 100%; padding: 14px; background: #ffc107; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 16px; }
+        .section { padding: 40px 20px; max-width: 800px; margin: auto; }
+        h2 { border-bottom: 2px solid #007bff; display: inline-block; padding-bottom: 5px; }
     </style>
 </head>
 <body>
 
 <div class="hero">
     <h1>Sai Cab Safar</h1>
-    <p>Safe & Reliable Cab Service</p>
+    <p>आपकी यात्रा, हमारी जिम्मेदारी | सुरक्षित और आरामदायक सफर</p>
 </div>
 
 <div class="booking-card">
-    <select id="tripType">
-        <option value="One Way">One Way</option>
-        <option value="Round Trip">Round Trip</option>
-    </select>
+    <select id="tripType"><option>One Way</option><option>Round Trip</option></select>
     <input type="text" id="pickup" placeholder="From (Pickup City)">
     <input type="text" id="drop" placeholder="To (Drop City)">
     <input type="date" id="date">
     <button onclick="bookCab()">Search Cabs</button>
+</div>
+
+<div class="section">
+    <h2>About Us</h2>
+    <p>साई कैब सफर पिछले कई वर्षों से आपकी सेवा में है। हम सबसे भरोसेमंद और अनुभवी ड्राइवरों के साथ सस्ती और सुरक्षित यात्रा प्रदान करते हैं। चाहे एयरपोर्ट जाना हो या शहर से बाहर, हम हमेशा आपके लिए उपलब्ध हैं।</p>
+    
+    <h2>Our Services</h2>
+    <ul>
+        <li><b>One-Way Drops:</b> शहर से बाहर जाने के लिए किफायती वन-वे सेवा।</li>
+        <li><b>Round-Trip:</b> अपनी पसंदीदा जगहों के लिए पूरे दिन की बुकिंग।</li>
+        <li><b>Airport Transfers:</b> समय पर एयरपोर्ट पिकअप और ड्रॉप।</li>
+    </ul>
 </div>
 
 <script>
@@ -37,8 +48,12 @@
         var date = document.getElementById('date').value;
         var phone = "919049133130";
 
-        var url = "https://wa.me/" + phone + "?text=Hello, I want to book a cab:%0AFrom: " + pickup + "%0ATo: " + drop + "%0ADate: " + date;
-        window.open(url, '_blank');
+        if(pickup && drop && date) {
+            var url = "https://wa.me/" + phone + "?text=Hello, I want to book a cab:%0AFrom: " + pickup + "%0ATo: " + drop + "%0ADate: " + date;
+            window.open(url, '_blank');
+        } else {
+            alert("कृपया सभी जानकारी भरें!");
+        }
     }
 </script>
 </body>
