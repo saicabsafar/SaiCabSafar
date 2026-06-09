@@ -6,35 +6,30 @@
     <title>Sai Cab Safar - Shirdi</title>
     <style>
         body { font-family: sans-serif; background: #f3f1f7; padding: 20px; }
+        .search-box { background: white; padding: 20px; border-radius: 15px; margin-bottom: 30px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .form-group { margin-bottom: 15px; }
+        input { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 8px; box-sizing: border-box; }
         .fleet-container { display: grid; gap: 20px; }
         .fleet-card { background: white; padding: 15px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-        .fleet-img { width: 100%; height: 200px; object-fit: cover; border-radius: 10px; }
+        .fleet-img { width: 100%; height: 180px; object-fit: cover; border-radius: 10px; }
     </style>
 </head>
 <body>
 
+<div class="search-box">
+    <h3>🚖 ऑनलाइन गाड़ी बुक करें</h3>
+    <div class="form-group"><input type="text" placeholder="कहाँ से (From Location)"></div>
+    <div class="form-group"><input type="text" placeholder="कहाँ तक (To Destination)"></div>
+    <button style="width:100%; padding:15px; background:#25d366; color:white; border:none; border-radius:8px;">अभी बुक करें</button>
+</div>
+
 <h2 style="text-align:center;">हमारी गाड़ियाँ</h2>
 <div class="fleet-container">
-    <div class="fleet-card">
-        <img src="sedan.jpg.jpg" class="fleet-img" alt="Sedan">
-        <h3>Sedan (Dzire / Etios)</h3>
-    </div>
-    <div class="fleet-card">
-        <img src="InnovaCrysta.jpg.jpeg" class="fleet-img" alt="Innova Crysta">
-        <h3>Innova Crysta</h3>
-    </div>
-    <div class="fleet-card">
-        <img src="TempoTraveller.jpg.jpeg" class="fleet-img" alt="Tempo Traveller">
-        <h3>Tempo Traveller</h3>
-    </div>
-    <div class="fleet-card">
-        <img src="ertiga.jpg.jpeg" class="fleet-img" alt="Ertiga">
-        <h3>Ertiga</h3>
-    </div>
-    <div class="fleet-card">
-        <img src="hatchback.jpg.webp" class="fleet-img" alt="Hatchback">
-        <h3>Hatchback</h3>
-    </div>
+    <div class="fleet-card"><img src="sedan.jpg.jpg" class="fleet-img"><h3>Sedan (Dzire / Etios)</h3></div>
+    <div class="fleet-card"><img src="InnovaCrysta.jpg.jpeg" class="fleet-img"><h3>Innova Crysta</h3></div>
+    <div class="fleet-card"><img src="TempoTraveller.jpg.jpeg" class="fleet-img"><h3>Tempo Traveller</h3></div>
+    <div class="fleet-card"><img src="ertiga.jpg.jpeg" class="fleet-img"><h3>Ertiga</h3></div>
+    <div class="fleet-card"><img src="hatchback.jpg.webp" class="fleet-img"><h3>Hatchback</h3></div>
 </div>
 
 </body>
