@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>टैक्सी बुकिंग सेवा</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background-color: #f4f7f6; padding: 20px; }
+        .container { max-width: 500px; background: white; margin: auto; padding: 25px; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        h2 { text-align: center; color: #333; margin-bottom: 20px; }
+        label { display: block; margin: 10px 0 5px; font-weight: bold; }
+        input, select { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; }
+        button { width: 100%; padding: 15px; background-color: #25d366; color: white; border: none; border-radius: 6px; font-size: 18px; cursor: pointer; font-weight: bold; }
+        button:hover { background-color: #128c7e; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>टैक्सी बुकिंग</h2>
+    <form id="bookingForm">
+        <label>आपका नाम:</label>
+        <input type="text" id="name" placeholder="अपना नाम लिखें" required>
+        
+        <label>पिकअप स्थान:</label>
+        <input type="text" id="pickup" placeholder="कहाँ से?" required>
+        
+        <label>ड्रॉप स्थान:</label>
+        <input type="text" id="drop" placeholder="कहाँ तक?" required>
+        
+        <label>गाड़ी चुनें:</label>
+        <select id="carType">
+            <option value="Sedan">सेडान (Sedan)</option>
+            <option value="SUV">एसयूवी (SUV)</option>
+            <option value="Luxury">लक्जरी (Luxury)</option>
+        </select>
+        
+        <label>तारीख:</label>
+        <input type="date" id="date" required>
+
+        <button type="button" onclick="sendToWhatsApp()">WhatsApp पर बुक करें</button>
+    </form>
+</div>
+
+<script>
+    function sendToWhatsApp() {
+        // यहाँ अपना WhatsApp नंबर बदलें
+        var phone = "91XXXXXXXXXX"; 
+        var name = document.getElementById("name").value;
+        var pickup = document.getElementById("pickup").value;
+        var drop = document.getElementById("drop").value;
+        var carType = document.getElementById("carType").value;
+        var date = document.getElementById("date").value;
+
+        var message = "नमस्ते, मुझे टैक्सी बुक करनी है।%0A%0A*नाम:* " + name + "%0A*पिकअप:* " + pickup + "%0A*ड्रॉप:* " + drop + "%0A*गाड़ी:* " + carType + "%0A*तारीख:* " + date;
+        
+        window.open("https://wa.me/" + phone + "?text=" + message, "_blank");
+    }
+</script>
+
+</body>
+</html>
